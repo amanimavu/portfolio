@@ -1,6 +1,5 @@
 # Personal Portfolio Website
 
-
 ### Description
 
 I created this web application to build my online presence and showcase
