@@ -1,6 +1,5 @@
 # Personal Portfolio Website
 
-___
 
 ### Description
 
