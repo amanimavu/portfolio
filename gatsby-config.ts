@@ -15,6 +15,8 @@ const config: GatsbyConfig = {
         'gatsby-plugin-sitemap',
         'gatsby-plugin-sharp',
         'gatsby-transformer-sharp',
+        'gatsby-plugin-tsconfig-paths',
+        'gatsby-plugin-svgr',
         {
             resolve: 'gatsby-source-filesystem',
             options: {
@@ -22,6 +24,26 @@ const config: GatsbyConfig = {
                 path: './src/images/',
             },
             __key: 'images',
+        },
+        {
+            resolve: `gatsby-omni-font-loader`,
+            options: {
+                enableListener: true,
+                preconnect: [
+                    `https://fonts.googleapis.com`,
+                    `https://fonts.gstatic.com`,
+                ],
+                web: [
+                    {
+                        name: `Roboto Mono`,
+                        file: `https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap`,
+                    },
+                    {
+                        name: `Rubik`,
+                        file: `https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap`,
+                    },
+                ],
+            },
         },
         // {
         //     resolve: 'gatsby-plugin-google-gtag',
