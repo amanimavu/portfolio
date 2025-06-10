@@ -52,7 +52,7 @@ const config: GatsbyConfig = {
             resolve: `gatsby-source-contentful`,
             options: {
                 spaceId: `u9isgccg2ljl`,
-                accessToken: `lz-Tf2oTy5mhHt-Hg-AlegmLU2zGNW1EYVyA5Z3iLGw`,
+                accessToken: process.env.ACCESS_TOKEN,
             },
         },
         // {
