@@ -1,37 +1,52 @@
-import React, { useMemo } from 'react'
-import { useScreens } from 'src/utils/hooks'
+import { Link } from "gatsby"
+import React from "react"
+import { useScreens } from "src/utils/hooks"
+import { formatDate } from "utils/date"
+import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 
-export function BlogPreview({
-    title,
-    date,
-    preview,
-}: {
-    title: string
-    date: string
-    preview: string
-}) {
+type BlogPreviewProps<
+    T extends
+        Queries.AllBlogsQuery["allContentfulBlog"]["nodes"][number] = Queries.AllBlogsQuery["allContentfulBlog"]["nodes"][number],
+> = Pick<T, "title" | "preview" | "slug"> & {
+    date: T["blogDate"]
+}
+
+export function BlogPreview({ title, date, preview, slug }: BlogPreviewProps) {
     const [xs] = useScreens()
-    const previewCharacters = useMemo(() => {
-        if (xs) {
-            return 150
-        }
-        return 340
-    }, [xs])
-    const processedPreview = useMemo(() => {
-        const result = preview
-            .substring(0, previewCharacters)
-            .replace(/$/, '...')
-        return result
-    }, [preview])
+
     return (
         <article className="blog-preview">
             <h4 className="title">{title}</h4>
-            <p className="date">{date}</p>
-            <main className="preview">
+            <p className="date">{formatDate(date ?? "")}</p>
+            <div className="preview">
                 <p>
-                    {processedPreview} <span>read more</span>
+                    {preview?.preview}...{" "}
+                    <Link className="link" to={`${slug}`}>
+                        read more
+                    </Link>
                 </p>
-            </main>
+            </div>
         </article>
+    )
+}
+
+type BlogEntryProps<T extends Queries.SingleBlogQuery["contentfulBlog"] = Queries.SingleBlogQuery["contentfulBlog"]> =
+    T extends Record<string, any>
+        ? Pick<T, "content" | "title"> & { date: T extends Record<string, any> ? T["blogDate"] : string }
+        : null
+
+export function BlogEntry(props: BlogEntryProps) {
+    const { title, content, date } = props ?? {}
+    const body = documentToReactComponents(JSON.parse(content?.raw ?? ""))
+    const [xs] = useScreens()
+
+    return (
+        <>
+            <article className="blog-entry">
+                <h2 className="title">{title}</h2>
+                <p className="date">{formatDate(date ?? "")}</p>
+                <div className="entry">{body}</div>
+            </article>
+        </>
     )
 }

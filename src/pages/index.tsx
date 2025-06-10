@@ -1,34 +1,65 @@
-import React, { useEffect } from 'react'
-import type { HeadFC, PageProps } from 'gatsby'
-import favicon from '../images/pngs/favicon.png'
-import '../styles.css'
-import { StaticImage } from 'gatsby-plugin-image'
+import React, { useEffect, useState } from "react"
+import type { HeadFC, PageProps } from "gatsby"
+import "../styles.css"
+import { StaticImage } from "gatsby-plugin-image"
+import { SEO } from "components/seo"
+import { useCurrentTheme } from "utils/hooks"
 
 export default function Index(props: PageProps) {
+    const [isDarkTheme, setIsDarkTheme] = useState<boolean>(true)
+
+    const getCurrentTheme = useCurrentTheme()
+
+    useEffect(() => {
+        const theme = getCurrentTheme()
+        if (theme === "light") {
+            setIsDarkTheme(false)
+        }
+    }, [getCurrentTheme])
+
+    useEffect(() => {
+        const systemLightTheme = window.matchMedia("(prefers-color-scheme: light)")
+
+        const reflectCurrentTheme = () => {
+            const theme = getCurrentTheme()
+            console.log(theme)
+            if (theme === "dark") {
+                setIsDarkTheme(true)
+            } else {
+                setIsDarkTheme(false)
+            }
+        }
+        systemLightTheme.addEventListener("change", reflectCurrentTheme)
+        window.addEventListener("theme", reflectCurrentTheme)
+
+        return () => {
+            systemLightTheme.removeEventListener("change", reflectCurrentTheme)
+            window.removeEventListener("theme", reflectCurrentTheme)
+        }
+    }, [getCurrentTheme])
     return (
         <div id="landing-page">
-            <StaticImage
-                className="hero-image"
-                src="../images/pngs/hero-image.png"
-                alt="hero image"
-                layout="constrained"
-                width={500}
-                placeholder="blurred"
-            />
+            {isDarkTheme ? (
+                <StaticImage
+                    className="hero-image"
+                    src="../images/pngs/hero-image-light.png"
+                    alt="hero image"
+                    layout="constrained"
+                    width={500}
+                    placeholder="blurred"
+                />
+            ) : (
+                <StaticImage
+                    className="hero-image"
+                    src="../images/pngs/hero-icon-dark.png"
+                    alt="hero image"
+                    layout="constrained"
+                    width={500}
+                    placeholder="blurred"
+                />
+            )}
         </div>
     )
 }
 
-export const Head: HeadFC = () => {
-    return (
-        <>
-            <title id="title">Amani Mavu</title>
-            <meta
-                id="viewport"
-                name="viewport"
-                content="width=device-width, initial-scale=1"
-            />
-            <link id="icon" rel="icon" href={favicon} />
-        </>
-    )
-}
+export const Head: HeadFC = () => <SEO />
