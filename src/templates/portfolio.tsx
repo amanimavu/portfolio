@@ -1,31 +1,30 @@
 import { DisplayChip } from "components/chips"
 import { Collapse } from "components/collapse"
 import { Divider } from "components/divider"
+import { navigate } from "gatsby"
 import React, { useEffect, useMemo, useState } from "react"
 import { useScreens } from "src/utils/hooks"
 
-type Experience = {
-    id: number
-    company: string
-    title: string
-    start_date: string
-    end_date: string | null
-    current_job: boolean
-    account: string[]
-}
+type Experience = Queries.AllExperienceAndProjectsQuery["allContentfulExperience"]["nodes"][number]
 
-type Project = {
-    id: number
-    name: string
-    repo_url: string
-    technologies: string[]
-    features: string[]
-}
-
-export const ExperienceTemplate = ({ experience }: { experience: Experience[] }) => {
+export const ExperienceTemplate = ({ experience }: { experience: readonly Experience[] }) => {
     const [xs] = useScreens()
     const [description, setDescription] = useState<Omit<Experience, "id"> | null>(null)
-    const [activeKey, setActiveKey] = useState(1)
+    const [activeKey, setActiveKey] = useState(experience[0]["id"])
+
+    useEffect(() => {
+        const filters = Array.from(document.querySelectorAll("#experience ul.labels li"))
+        filters.forEach((filter) => {
+            filter.addEventListener("keydown", (e) => {
+                if ((e as KeyboardEvent).key.toLowerCase() === "enter") {
+                    const target = e.target as HTMLUListElement
+                    const description = dataMap.get(target.id)
+                    description && setDescription(description)
+                    setActiveKey(target.id)
+                }
+            })
+        })
+    }, [])
 
     const allLabels = useMemo(() => {
         const result = experience.reduce(
@@ -58,11 +57,11 @@ export const ExperienceTemplate = ({ experience }: { experience: Experience[] })
     }, [allLabels])
 
     return (
-        <section style={xs ? { marginBottom: "8vh" } : { marginBottom: "20vh" }} className="portfolio">
+        <section id="experience" style={xs ? { marginBottom: "8vh" } : { marginBottom: "20vh" }} className="portfolio">
             <h2 className="portfolio-header">EXPERIENCE</h2>
             <div>
                 {xs &&
-                    experience.map(({ company, start_date, current_job, title, end_date, account, id }) => {
+                    experience.map(({ company, startDate, currentJob, title, endDate, account, id }) => {
                         return (
                             <Collapse
                                 name="experience"
@@ -71,19 +70,15 @@ export const ExperienceTemplate = ({ experience }: { experience: Experience[] })
                                     <div className="collapse-header">
                                         <h4>{company}</h4>
                                         <h4>
-                                            <span>{start_date ?? null}</span>
+                                            <span>{startDate ?? null}</span>
                                             <span> - </span>
-                                            <span>{current_job ? "to date" : (end_date ?? null)}</span>
+                                            <span>{currentJob ? "to date" : (endDate ?? null)}</span>
                                         </h4>
                                         <h4>{title}</h4>
                                     </div>
                                 )}
                             >
-                                <ul>
-                                    {account.map((acc, index) => (
-                                        <li key={index}>{acc}</li>
-                                    ))}
-                                </ul>
+                                <ul>{account?.map((acc, index) => <li key={index}>{acc}</li>)}</ul>
                             </Collapse>
                         )
                     })}
@@ -92,7 +87,9 @@ export const ExperienceTemplate = ({ experience }: { experience: Experience[] })
                         <ul className="labels">
                             {allLabels.map(({ company, id }) => (
                                 <li
+                                    tabIndex={0}
                                     key={id}
+                                    id={id}
                                     data-active={activeKey === id}
                                     onClick={() => {
                                         const description = dataMap.get(id)
@@ -107,12 +104,12 @@ export const ExperienceTemplate = ({ experience }: { experience: Experience[] })
                         <Divider />
                         <article className="description">
                             <h4>
-                                <span>{description?.start_date ?? null}</span>
+                                <span>{description?.startDate ?? null}</span>
                                 <span> - </span>
-                                <span>{description?.current_job ? "to date" : (description?.end_date ?? null)}</span>
+                                <span>{description?.currentJob ? "to date" : (description?.endDate ?? null)}</span>
                             </h4>
                             <h4>{description?.title ?? null}</h4>
-                            <ul>{description?.account.map((acc, index) => <li key={index}>{acc}</li>)}</ul>
+                            <ul>{description?.account?.map((acc, index) => <li key={index}>{acc}</li>)}</ul>
                         </article>
                     </>
                 )}
@@ -121,10 +118,26 @@ export const ExperienceTemplate = ({ experience }: { experience: Experience[] })
     )
 }
 
-export const ProjectTemplate = ({ projects }: { projects: Project[] }) => {
+type Project = Queries.AllExperienceAndProjectsQuery["allContentfulProjects"]["nodes"][number]
+
+export const ProjectTemplate = ({ projects }: { projects: readonly Project[] }) => {
     const [description, setDescription] = useState<Omit<Project, "id"> | null>(null)
-    const [activeKey, setActiveKey] = useState(1)
+    const [activeKey, setActiveKey] = useState(projects[0]["id"])
     const [xs] = useScreens()
+
+    useEffect(() => {
+        const filters = Array.from(document.querySelectorAll("#projects ul.labels li"))
+        filters.forEach((filter) => {
+            filter.addEventListener("keydown", (e) => {
+                if ((e as KeyboardEvent).key.toLowerCase() === "enter") {
+                    const target = e.target as HTMLUListElement
+                    const description = dataMap.get(target.id)
+                    description && setDescription(description)
+                    setActiveKey(target.id)
+                }
+            })
+        })
+    }, [])
 
     const allLabels = useMemo(() => {
         const result = projects.reduce(
@@ -157,11 +170,11 @@ export const ProjectTemplate = ({ projects }: { projects: Project[] }) => {
     }, [allLabels])
 
     return (
-        <section className="portfolio">
+        <section id="projects" className="portfolio">
             <h2 className="portfolio-header">PROJECTS</h2>
             <div>
                 {xs &&
-                    projects.map(({ id, name, repo_url, technologies, features }) => {
+                    projects.map(({ id, name, url, technologies, features }) => {
                         return (
                             <Collapse
                                 name="projects"
@@ -169,9 +182,9 @@ export const ProjectTemplate = ({ projects }: { projects: Project[] }) => {
                                 renderHeader={() => (
                                     <div className="collapse-header">
                                         <h4>{name}</h4>
-                                        <h4>{repo_url}</h4>
+                                        <h4>{url ?? "#"}</h4>
                                         <ul className="technologies">
-                                            {technologies.map((tech, index) => (
+                                            {technologies?.map((tech, index) => (
                                                 <li key={index}>
                                                     <DisplayChip label={tech} />
                                                 </li>
@@ -180,11 +193,7 @@ export const ProjectTemplate = ({ projects }: { projects: Project[] }) => {
                                     </div>
                                 )}
                             >
-                                <ul>
-                                    {features.map((feature, index) => (
-                                        <li key={index}>{feature}</li>
-                                    ))}
-                                </ul>
+                                <ul>{features?.map((feature, index) => <li key={index}>{feature}</li>)}</ul>
                             </Collapse>
                         )
                     })}
@@ -193,7 +202,9 @@ export const ProjectTemplate = ({ projects }: { projects: Project[] }) => {
                         <ul className="labels">
                             {allLabels.map(({ company, id }) => (
                                 <li
+                                    tabIndex={0}
                                     key={id}
+                                    id={id}
                                     data-active={activeKey === id}
                                     onClick={() => {
                                         const description = dataMap.get(id)
@@ -208,18 +219,18 @@ export const ProjectTemplate = ({ projects }: { projects: Project[] }) => {
                         <Divider />
                         <article className="description">
                             <h4>
-                                <a target="_blank" rel="noopener noreferrer" href={description?.repo_url}>
-                                    {description?.repo_url}
+                                <a target="_blank" rel="noopener noreferrer" href={description?.url ?? "#"}>
+                                    {description?.url ?? null}
                                 </a>
                             </h4>
                             <ul className="technologies">
-                                {description?.technologies.map((tech, index) => (
+                                {description?.technologies?.map((tech, index) => (
                                     <li key={index}>
                                         <DisplayChip label={tech} />
                                     </li>
                                 ))}
                             </ul>
-                            <ul>{description?.features.map((feature, index) => <li key={index}>{feature}</li>)}</ul>
+                            <ul>{description?.features?.map((feature, index) => <li key={index}>{feature}</li>)}</ul>
                         </article>
                     </>
                 )}

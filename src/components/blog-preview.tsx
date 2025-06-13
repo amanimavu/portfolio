@@ -1,7 +1,7 @@
-import { Link } from "gatsby"
 import React from "react"
-import { useScreens } from "src/utils/hooks"
+import { Link } from "gatsby"
 import { formatDate } from "utils/date"
+import { useScreens } from "src/utils/hooks"
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 
 type BlogPreviewProps<
@@ -45,7 +45,7 @@ export function BlogEntry(props: BlogEntryProps) {
             <article className="blog-entry">
                 <h2 className="title">{title}</h2>
                 <p className="date">{formatDate(date ?? "")}</p>
-                <div className="entry">{body}</div>
+                <div>{body}</div>
             </article>
         </>
     )
