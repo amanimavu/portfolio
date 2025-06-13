@@ -13,8 +13,26 @@ export const createPages: GatsbyNode["createPages"] = async ({ actions, reporter
         }
     `)
 
+    const limit = 1 as const
+    const { data, errors } = await graphql<{
+        allContentfulBlog: { pageInfo: { perPage: number; totalCount: number } }
+    }>(`
+        query getBlogsPageInfo {
+            allContentfulBlog(filter: { node_locale: { eq: "en-US" } }, limit: ${limit}) {
+                pageInfo {
+                    perPage
+                    totalCount
+                }
+            }
+        }
+    `)
+
     if (result.errors) {
         reporter.panicOnBuild(`Error while running GraphQL query`)
+    }
+
+    if (errors) {
+        reporter.panicOnBuild(`Error while querying for allContentfulBlog`)
     }
 
     const allBlogsTemplate = path.resolve(`./src/pages/blogs/index.tsx`)
@@ -28,4 +46,18 @@ export const createPages: GatsbyNode["createPages"] = async ({ actions, reporter
             },
         })
     })
+
+    const { perPage = limit, totalCount = 1 } = data?.allContentfulBlog?.pageInfo ?? {}
+    const numberOfPages = Math.ceil(totalCount / perPage)
+    console.log(numberOfPages)
+    for (let i = 2; i <= numberOfPages; i++) {
+        createPage({
+            path: `/blogs/page/${i}`,
+            component: allBlogsTemplate,
+            context: {
+                offset: (i - 1) * limit,
+                limit,
+            },
+        })
+    }
 }

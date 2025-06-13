@@ -404,7 +404,7 @@ ol li {
     margin-bottom: var(--space-after-list-item-sm);
 }
 
-.blog-entry p > p {
+.blog-entry > div > p {
     margin-bottom: var(--main-padding-y);
 }
 
@@ -424,6 +424,19 @@ ol li {
     border-left: solid var(--primary-color) 2px;
     border-right: solid var(--primary-color) 2px;
     background-color: var(--secondary-color);
+}
+
+#previews .toolbar #pagination-search {
+    display: flex;
+    gap: 5px;
+}
+
+#previews .toolbar #pagination-search button {
+    cursor: pointer;
+}
+
+#previews .toolbar #pagination-search button:disabled {
+    cursor: not-allowed;
 }
 
 #previews .toolbar input {

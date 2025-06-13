@@ -16,7 +16,6 @@ export function BlogsLayout({ children, ...props }: { children: ReactNode }) {
 
     useEffect(() => {
         const filters = Array.from(document.querySelectorAll(".filters ul li"))
-        console.log(filters)
         filters.forEach((filter) => {
             filter.addEventListener("keydown", (e) => {
                 if ((e as KeyboardEvent).key.toLowerCase() === "enter") {
@@ -59,7 +58,7 @@ export function BlogsLayout({ children, ...props }: { children: ReactNode }) {
                     <div className="filters">
                         <ul>
                             <li
-                                data-active={route === "blogs"}
+                                data-active={route === "blogs" || !!parseInt(route ?? "0")}
                                 onClick={() => {
                                     navigate(`/blogs/`, { replace: true })
                                 }}
