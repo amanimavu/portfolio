@@ -21,7 +21,7 @@ export function BlogPreview({ title, date, preview, slug }: BlogPreviewProps) {
             <div className="preview">
                 <p>
                     {preview?.preview}...{" "}
-                    <Link className="link" to={`${slug}`}>
+                    <Link className="link" to={`/blogs/${slug}`}>
                         read more
                     </Link>
                 </p>
