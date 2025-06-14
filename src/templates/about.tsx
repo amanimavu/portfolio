@@ -1,6 +1,6 @@
-import { StaticImage } from 'gatsby-plugin-image'
-import React, { ReactNode } from 'react'
-import { useScreens } from 'src/utils/hooks'
+import { StaticImage } from "gatsby-plugin-image"
+import React, { ReactNode } from "react"
+import { useScreens } from "src/utils/hooks"
 
 export const AboutTemplate = ({ children }: { children: ReactNode }) => {
     const [xs] = useScreens()
@@ -10,7 +10,7 @@ export const AboutTemplate = ({ children }: { children: ReactNode }) => {
             {xs ? (
                 <StaticImage
                     style={{
-                        gridArea: '1/1',
+                        gridArea: "1/1",
                         // You can set a maximum height for the image, if you wish.
                         // maxHeight: 600,
                         opacity: 0.3,
@@ -19,12 +19,12 @@ export const AboutTemplate = ({ children }: { children: ReactNode }) => {
                     // This is a presentational image, so the alt should be an empty string
                     alt="Amani Mavu"
                     // Assisi, Perúgia, Itália by Bernardo Ferrari, via Unsplash
-                    src="../images/pngs/anthony-riera-BaPeQgGGuWA-unsplash 1.png"
-                    formats={['auto', 'webp', 'avif']}
+                    src="../images/pngs/me.png"
+                    formats={["auto", "webp", "avif"]}
                 />
             ) : (
                 <StaticImage
-                    src="../images/pngs/anthony-riera-BaPeQgGGuWA-unsplash 1.png"
+                    src="../images/pngs/me.png"
                     alt="Amani Mavu"
                     layout="fullWidth"
                     className="my-image"
