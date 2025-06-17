@@ -12,7 +12,7 @@ export function RootLayout({ children, ...props }: { children: ReactNode }) {
 
     const [isMobileScreen] = useScreens()
     return (
-        <section style={isMobileScreen ? { marginBottom: "10vh" } : undefined} id="root-layout">
+        <section id="root-layout">
             {isMobileScreen ? (
                 <>
                     <Navbar pathname={pathname} />

@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react"
+import React, { CSSProperties, useEffect, useState } from "react"
 import type { HeadFC, PageProps } from "gatsby"
 import "../styles.css"
 import { StaticImage } from "gatsby-plugin-image"
 import { SEO } from "components/seo"
-import { useCurrentTheme } from "utils/hooks"
+import { useCurrentTheme, useScreens } from "utils/hooks"
 
 export default function Index(props: PageProps) {
     const [isDarkTheme, setIsDarkTheme] = useState<boolean>(true)
@@ -22,7 +22,6 @@ export default function Index(props: PageProps) {
 
         const reflectCurrentTheme = () => {
             const theme = getCurrentTheme()
-            console.log(theme)
             if (theme === "dark") {
                 setIsDarkTheme(true)
             } else {
@@ -37,6 +36,7 @@ export default function Index(props: PageProps) {
             window.removeEventListener("theme", reflectCurrentTheme)
         }
     }, [getCurrentTheme])
+
     return (
         <div id="landing-page">
             {isDarkTheme ? (

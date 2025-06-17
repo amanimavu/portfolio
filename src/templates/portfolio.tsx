@@ -57,7 +57,7 @@ export const ExperienceTemplate = ({ experience }: { experience: readonly Experi
     }, [allLabels])
 
     return (
-        <section id="experience" style={xs ? { marginBottom: "8vh" } : { marginBottom: "20vh" }} className="portfolio">
+        <section id="experience" className="portfolio">
             <h2 className="portfolio-header">EXPERIENCE</h2>
             <div>
                 {xs &&
