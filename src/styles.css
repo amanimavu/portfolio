@@ -13,6 +13,7 @@
     --primary-color: #f6f6f6;
     --secondary-color: #111111;
     --accent: #ffcb74;
+    --code-bg-color: black;
 
     /* spacing */
     --main-padding-y: 20px;
@@ -485,6 +486,7 @@ html[data-theme="light"] {
     --primary-color: #111111;
     --secondary-color: #f6f6f6;
     --accent: #5b1166;
+    --code-bg-color: white;
 }
 
 #social-bar {
@@ -549,75 +551,76 @@ html[data-theme="light"] {
     margin-bottom: var(--space-after-list-item-sm);
 }
 
-#not-found .countdown-cards-wrapper {
-    display: flex;
-    justify-content: center;
-    font-size: 15em;
-    user-select: none;
+:has(#not-found) {
+    overflow: clip;
 }
 
-#not-found .countdown-cards-wrapper .countdown-cards {
-    border: solid;
-    margin: 10px;
-    padding: 30px;
-    position: relative;
-    border-radius: 10px;
+#not-found {
+    height: var(--content-height);
 }
 
-#not-found .countdown-cards-wrapper .countdown-cards::before {
-    content: "";
+#not-found p {
     position: absolute;
-    top: 0;
-    left: 0;
-    display: inline-block;
-    width: 100%;
-    height: 50%;
-    background-color: black;
-    opacity: 0.4;
-    border-radius: 7px 7px 0 0;
+    left: 52%;
+    top: 30%;
+    transform: translateX(-50%);
+    font-size: 2em;
 }
 
-#not-found .countdown-cards-wrapper .countdown-cards::after {
-    z-index: -1;
-    content: "";
+.infinite-ring {
     position: absolute;
     top: 50%;
-    left: 0;
-    display: inline-block;
-    width: 100%;
-    height: 50%;
-    box-shadow: -1px 15px 10px 3px black;
-}
-
-#not-found .countdown-cards-wrapper .countdown-cards .rings {
-    top: 50%;
-    left: 0;
-    width: 100%;
-    height: 5px;
-    position: absolute;
-    background-color: var(--primary-color);
-    transform: translateY(-50%);
-}
-
-#not-found .countdown-cards-wrapper .countdown-cards .rings::before,
-#not-found .countdown-cards-wrapper .countdown-cards .rings::after {
-    content: "";
-    width: 25px;
-    aspect-ratio: 1 / 1;
-    display: inline-block;
-    position: absolute;
-    background-color: var(--secondary-color);
-    transform: translate(-59%, -50%) rotate(45deg);
+    left: 50%;
+    width: 3em;
+    aspect-ratio: 1/1;
     border-radius: 50%;
-    border-style: solid;
-    border-left-color: transparent;
-    border-bottom-color: transparent;
-    box-shadow: inset -8px 10px 6px -6px rgba(0, 0, 0, 0.8);
+    background-color: transparent;
+    border: solid 2px;
+    opacity: 0.2;
+    box-shadow:
+        0 0 3px 0px var(--primary-color),
+        0 0 5px 3px var(--primary-color),
+        0 0 10px 5px var(--primary-color),
+        0 0 20px 10px var(--primary-color);
 }
 
-#not-found .countdown-cards-wrapper .countdown-cards .rings::after {
-    left: 100%;
-    transform: translate(-41%, -50%) rotate(225deg);
+#not-found h2 {
+    position: absolute;
+    top: 50%;
+    font-size: 8rem;
+    transform: translateY(-25%);
+    left: 40%;
+}
+
+#not-found > h2:nth-child(2) {
+    left: calc(60% - 2rem);
+}
+
+#not-found button {
+    position: absolute;
+    left: 48%;
+    top: 70%;
+    cursor: pointer;
+    padding: 5px 10px;
+}
+
+.infinite-ring::before,
+.infinite-ring::after {
+    position: absolute;
+    content: "";
+    display: block;
+    margin: -2px;
+    border-radius: 50%;
+    border: solid 2px var(--primary-color);
+    width: 100%;
+    height: 100%;
+    animation-name: aku-portal;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+}
+
+.infinite-ring::after {
+    animation-delay: 1s;
 }
 
 #count-badge {
@@ -634,6 +637,15 @@ html[data-theme="light"] {
     display: flex;
     /* align-items: baseline; */
     gap: 6px;
+}
+
+p code {
+    white-space: pre;
+}
+
+p:has(code) {
+    background-color: var(--code-bg-color);
+    padding: 15px;
 }
 
 @media (width <= 768px) {
@@ -747,6 +759,39 @@ html[data-theme="light"] {
 
     .hero-image {
         transform: translateX(-50%) translateY(20%);
+    }
+
+    #not-found p {
+        font-size: 1.5em;
+        top: 25%;
+        text-align: center;
+    }
+
+    #not-found h2 {
+        left: 15%;
+    }
+
+    #not-found h2:nth-child(2) {
+        left: calc(70% - 2rem);
+    }
+
+    #not-found button {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .infinite-ring {
+        transform: translate(-50%, -0);
+    }
+}
+
+@keyframes aku-portal {
+    0% {
+        scale: 1;
+    }
+
+    100% {
+        scale: 25;
     }
 }
 
