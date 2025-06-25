@@ -15,6 +15,7 @@
         "typecheck": "tsc --noEmit"
     },
     "dependencies": {
+        "@contentful/rich-text-html-renderer": "^17.0.1",
         "@contentful/rich-text-react-renderer": "^16.0.1",
         "@svgr/webpack": "^8.1.0",
         "gatsby": "^5.14.1",
@@ -28,6 +29,7 @@
         "gatsby-source-contentful": "^8.15.0",
         "gatsby-source-filesystem": "^5.14.0",
         "gatsby-transformer-sharp": "^5.14.0",
+        "highlight.js": "^11.11.1",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-helmet": "^6.1.0"
@@ -39,6 +41,7 @@
         "gatsby-plugin-tsconfig-paths": "^1.0.6",
         "prettier": "3.5.3",
         "typescript": "^5.3.3",
-        "typescript-plugin-css-modules": "^5.1.0"
+        "typescript-plugin-css-modules": "^5.1.0",
+        "worker-loader": "^3.0.8"
     }
 }

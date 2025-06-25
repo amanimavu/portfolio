@@ -1,7 +1,5 @@
 import * as React from "react"
-import type { HeadFC, PageProps } from "gatsby"
-import favicon from "../images/pngs/favicon.png"
-import "../styles.css"
+import type { HeadFC } from "gatsby"
 import { AboutTemplate } from "templates/about"
 import { SEO } from "components/seo"
 
