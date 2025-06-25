@@ -1,6 +1,5 @@
 import React, { CSSProperties, useEffect, useState } from "react"
 import type { HeadFC, PageProps } from "gatsby"
-import "../styles.css"
 import { StaticImage } from "gatsby-plugin-image"
 import { SEO } from "components/seo"
 import { useCurrentTheme, useScreens } from "utils/hooks"
