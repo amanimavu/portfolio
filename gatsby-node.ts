@@ -61,3 +61,23 @@ export const createPages: GatsbyNode["createPages"] = async ({ actions, reporter
         })
     }
 }
+
+export const onCreateWebpackConfig: GatsbyNode["onCreateWebpackConfig"] = ({
+    actions: { replaceWebpackConfig },
+    getConfig,
+}) => {
+    const config = getConfig()
+
+    config.module.rules.push(
+        {
+            test: /\.worker\.ts$/,
+            loader: "worker-loader",
+            options: {
+                worker: "Worker",
+            },
+        },
+        { stats: { children: true } }
+    )
+
+    replaceWebpackConfig(config)
+}
