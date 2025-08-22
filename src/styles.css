@@ -269,7 +269,7 @@ button:disabled {
     gap: 8vh;
 }
 
-#experience:has(+#projects){
+#experience:has(+ #projects) {
     margin-bottom: 20vh;
 }
 
@@ -489,7 +489,12 @@ button:disabled {
 
 .blog-entry ul,
 ol li {
-    margin-bottom: var(--space-after-list-item-sm);
+    margin-bottom: calc(var(--space-after-list-item-sm) * 0.5);
+}
+
+.blog-entry ul,
+ol {
+    margin-bottom: var(--space-after-list-item-lg);
 }
 
 .blog-entry > div > p {
@@ -655,6 +660,11 @@ p code {
     white-space: pre;
 }
 
+p code *, p code{
+    font-size: 0.95em;
+    line-height: 2;
+}
+
 .circle-sketch-highlight {
     position: relative;
 }
@@ -667,13 +677,13 @@ p:has(code) {
     scrollbar-width: thin;
 }
 
-mark{
+mark {
     background-color: var(--accent);
     padding: 0.1em 0.2em;
     color: var(--secondary-color);
 }
 
-#tools-of-trade{
+#tools-of-trade {
     margin: 6em auto;
     display: flex;
     flex-wrap: wrap;
@@ -682,20 +692,20 @@ mark{
     width: 60%;
 }
 
-#tools-of-trade .icon{
+#tools-of-trade .icon {
     width: 5em;
     filter: grayscale(1);
 }
 
-#tools-of-trade .icon#next{
+#tools-of-trade .icon#next {
     opacity: 0.4;
 }
 
-#tools-of-trade .icon:hover{
+#tools-of-trade .icon:hover {
     filter: contrast(200%);
 }
 
-#tools-of-trade .icon#next:hover{
+#tools-of-trade .icon#next:hover {
     opacity: 1;
     transition: opacity 200ms ease-in;
 }
