@@ -926,8 +926,7 @@ mark {
     #about-me > *:nth-child(1) {
         position: relative;
         grid-area: 1 / 1;
-        display: grid;
-        place-items: "center";
+        place-items: center;
         z-index: 0;
     }
 
@@ -948,7 +947,7 @@ mark {
 
     #about-me > *:first-child > p {
         width: 95%;
-        padding-bottom: 80px;
+        padding-top: 3em;
     }
 
     .portfolio {
