@@ -41,7 +41,6 @@
         "gatsby-plugin-tsconfig-paths": "^1.0.6",
         "prettier": "3.5.3",
         "typescript": "^5.3.3",
-        "typescript-plugin-css-modules": "^5.1.0",
-        "worker-loader": "^3.0.8"
+        "typescript-plugin-css-modules": "^5.1.0"
     }
 }
