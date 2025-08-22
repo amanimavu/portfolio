@@ -20,7 +20,7 @@ export default function AboutMe() {
                 high-performing web applications.
             </p>
             <p>
-                I am just to leave this here <mark>amanimavu@gmail.com</mark>
+                I am just going to leave this here <mark>amanimavu@gmail.com</mark>
             </p>
 
             {!md ? <section id="tools-of-trade">

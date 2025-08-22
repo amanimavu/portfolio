@@ -35,8 +35,8 @@ export default function Portfolio() {
 
     return (
         <>
-            <ExperienceTemplate experience={experience} />
-            <ProjectTemplate projects={projects} />
+            {experience.length ? <ExperienceTemplate experience={experience} /> : null}
+            {projects.length ? <ProjectTemplate projects={projects} /> : null}
         </>
     )
 }
