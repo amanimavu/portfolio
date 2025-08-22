@@ -1,11 +1,10 @@
-import React, { useEffect, useMemo } from "react"
+import React, { CSSProperties, useEffect, useMemo } from "react"
 import { Link } from "gatsby"
 import { formatDate } from "utils/date"
 import { useScreens } from "src/utils/hooks"
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import hljs from "highlight.js"
 //@ts-ignore
-import Worker from "utils/formater.worker.ts"
 import("highlight.js/styles/a11y-light.min.css")
 
 type BlogPreviewProps<
@@ -13,13 +12,14 @@ type BlogPreviewProps<
         Queries.AllBlogsQuery["allContentfulBlog"]["nodes"][number] = Queries.AllBlogsQuery["allContentfulBlog"]["nodes"][number],
 > = Pick<T, "title" | "preview" | "slug"> & {
     date: T["blogDate"]
+    index: number
 }
 
-export function BlogPreview({ title, date, preview, slug }: BlogPreviewProps) {
+export function BlogPreview({ title, date, preview, slug, index }: BlogPreviewProps) {
     const [xs] = useScreens()
 
     return (
-        <article className="blog-preview">
+        <article className="blog-preview" style={{ "--animation-order": index } as CSSProperties}>
             <h4 className="title">{title}</h4>
             <p className="date">{formatDate(date ?? "")}</p>
             <div className="preview">
@@ -48,21 +48,14 @@ export function BlogEntry(props: BlogEntryProps) {
     }, [content?.raw])
 
     useEffect(() => {
-        const worker = new Worker()
-
         const pCodeTags = document.querySelectorAll("p:has(code)")
         pCodeTags.forEach((pCodeTag) => {
             const codeString = pCodeTag.querySelector("code")?.textContent
             if (codeString) {
-                worker.postMessage(codeString)
                 const code = hljs.highlightAuto(codeString).value
                 pCodeTag.innerHTML = `<code>${code}</code>`
             }
         })
-
-        return () => {
-            worker.terminate()
-        }
     }, [])
 
     const [xs] = useScreens()
@@ -70,7 +63,7 @@ export function BlogEntry(props: BlogEntryProps) {
     return (
         <>
             <article className="blog-entry">
-                <h2 className="title">{title}</h2>
+                <h1 className="title">{title}</h1>
                 <p className="date">{formatDate(date ?? "")}</p>
                 <div>{body}</div>
             </article>

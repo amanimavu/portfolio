@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { ReactComponent as LinkedIn } from "images/svgs/linkedin-icon.svg"
 import { ReactComponent as Github } from "images/svgs/github-icon.svg"
 import { ReactComponent as Instagram } from "images/svgs/instagram-icon.svg"

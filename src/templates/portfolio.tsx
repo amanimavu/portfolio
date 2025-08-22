@@ -1,9 +1,28 @@
 import { DisplayChip } from "components/chips"
 import { Collapse } from "components/collapse"
 import { Divider } from "components/divider"
-import { navigate } from "gatsby"
-import React, { useEffect, useMemo, useState } from "react"
+import React, { CSSProperties, useEffect, useMemo, useState } from "react"
 import { useScreens } from "src/utils/hooks"
+
+const createObserver = (target: Element) => {
+    const options: IntersectionObserverInit = {
+        root: null,
+        threshold: 1,
+    }
+
+    const callback: IntersectionObserverCallback = (entries, observer) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                target?.classList.add("visible")
+            } else {
+                target?.classList.remove("visible")
+            }
+        })
+    }
+
+    const observer = new IntersectionObserver(callback, options)
+    return observer
+}
 
 type Experience = Queries.AllExperienceAndProjectsQuery["allContentfulExperience"]["nodes"][number]
 
@@ -24,6 +43,17 @@ export const ExperienceTemplate = ({ experience }: { experience: readonly Experi
                 }
             })
         })
+    }, [])
+
+    useEffect(() => {
+        const description = document.querySelector("#experience .description")
+
+        const observer = description && createObserver(description)
+        observer && observer.observe(description)
+
+        return () => {
+            observer?.disconnect()
+        }
     }, [])
 
     const allLabels = useMemo(() => {
@@ -103,13 +133,17 @@ export const ExperienceTemplate = ({ experience }: { experience: readonly Experi
                         </ul>
                         <Divider />
                         <article className="description">
-                            <h4>
+                            <h4 style={{ "--animation-order": 0 } as React.CSSProperties}>
                                 <span>{description?.startDate ?? null}</span>
                                 <span> - </span>
                                 <span>{description?.currentJob ? "to date" : (description?.endDate ?? null)}</span>
                             </h4>
-                            <h4>{description?.title ?? null}</h4>
-                            <ul>{description?.account?.map((acc, index) => <li key={index}>{acc}</li>)}</ul>
+                            <h4 style={{ "--animation-order": 1 } as React.CSSProperties}>
+                                {description?.title ?? null}
+                            </h4>
+                            <ul style={{ "--animation-order": 2 } as React.CSSProperties}>
+                                {description?.account?.map((acc, index) => <li key={index}>{acc}</li>)}
+                            </ul>
                         </article>
                     </>
                 )}
@@ -137,6 +171,17 @@ export const ProjectTemplate = ({ projects }: { projects: readonly Project[] }) 
                 }
             })
         })
+    }, [])
+
+    useEffect(() => {
+        const description = document.querySelector("#projects .description")
+
+        const observer = description && createObserver(description)
+        observer && observer.observe(description)
+
+        return () => {
+            observer?.disconnect()
+        }
     }, [])
 
     const allLabels = useMemo(() => {
@@ -218,19 +263,21 @@ export const ProjectTemplate = ({ projects }: { projects: readonly Project[] }) 
                         </ul>
                         <Divider />
                         <article className="description">
-                            <h4>
+                            <h4 style={{ "--animation-order": 0 } as CSSProperties}>
                                 <a target="_blank" rel="noopener noreferrer" href={description?.url ?? "#"}>
                                     {description?.url ?? null}
                                 </a>
                             </h4>
-                            <ul className="technologies">
+                            <ul style={{ "--animation-order": 1 } as CSSProperties} className="technologies">
                                 {description?.technologies?.map((tech, index) => (
                                     <li key={index}>
                                         <DisplayChip label={tech} />
                                     </li>
                                 ))}
                             </ul>
-                            <ul>{description?.features?.map((feature, index) => <li key={index}>{feature}</li>)}</ul>
+                            <ul style={{ "--animation-order": 2 } as CSSProperties}>
+                                {description?.features?.map((feature, index) => <li key={index}>{feature}</li>)}
+                            </ul>
                         </article>
                     </>
                 )}
