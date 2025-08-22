@@ -624,6 +624,11 @@ html[data-theme="light"] {
     gap: 5px;
 }
 
+.collapse-header h4 {
+    word-break: break-word;
+    text-wrap: balance;
+}
+
 .collapse-header h4:first-child {
     color: var(--accent);
 }
@@ -660,7 +665,8 @@ p code {
     white-space: pre;
 }
 
-p code *, p code{
+p code *,
+p code {
     font-size: 0.95em;
     line-height: 2;
 }
@@ -919,6 +925,10 @@ mark {
         --space-after-list-item-sm: var(--space-after-list-item-sm / 2); */
     }
 
+    /* #experience:has(+ #projects) {
+            margin-bottom: 0;
+        } */
+
     #about-me {
         grid-template-columns: 1fr;
     }
@@ -955,9 +965,7 @@ mark {
         padding-top: 20px;
         min-height: auto;
     }
-
-    #experience,
-    #projects {
+    #experience:has(+ #projects) {
         margin-bottom: 8vh;
     }
 
