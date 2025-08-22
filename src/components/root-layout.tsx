@@ -1,6 +1,6 @@
 import { Navbar } from "components/navbar"
 import { Sidebar } from "components/sidebar"
-import { PageProps } from "gatsby"
+import {PageProps} from "gatsby"
 import React, { ReactNode } from "react"
 import SocialBar from "./social-bar"
 import { useScreens } from "src/utils/hooks"
@@ -12,7 +12,7 @@ export function RootLayout({ children, ...props }: { children: ReactNode }) {
 
     const [isMobileScreen] = useScreens()
     return (
-        <section id="root-layout">
+        <section style={{ overflowX: "hidden" }} id="root-layout">
             {isMobileScreen ? (
                 <>
                     <Navbar pathname={pathname} />
