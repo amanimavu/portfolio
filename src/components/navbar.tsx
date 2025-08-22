@@ -1,7 +1,9 @@
 import { Link } from "gatsby"
 import React, { CSSProperties, useMemo } from "react"
+import { ReactComponent as HomeIcon } from "images/svgs/home-icon.svg"
+import { useScreens } from "utils/hooks";
 
-export function Navbar({ pathname }: { pathname: string }) {
+export function Navbar({ pathname, blogCount }: { pathname: string; blogCount: number }) {
     const navBarStyles = useMemo(() => {
         const styles: CSSProperties = {}
         if (!["/", "/about-me/"].includes(pathname)) {
@@ -17,9 +19,19 @@ export function Navbar({ pathname }: { pathname: string }) {
         }
         return styles
     }, [pathname])
+
+    const [isMobileScreen] = useScreens()
     return (
         <div className="navigation-bar" style={navBarStyles}>
-            <nav aria-label="Top navigation" className="navigation-bar-container">
+            <nav style={{alignItems: "center"}} aria-label="Top navigation" className="navigation-bar-container">
+                {isMobileScreen ? <Link
+                    className="navigation-bar__item"
+                    activeClassName="link-active"
+                    to="/"
+                    style={{ ...linkStyles, opacity: pathname.includes("/") ? 0.5 : 1, transform: "scale(0.7)" }}
+                >
+                    <HomeIcon />
+                </Link>: null}
                 <Link
                     className="navigation-bar__item"
                     activeClassName="link-active"
@@ -36,14 +48,16 @@ export function Navbar({ pathname }: { pathname: string }) {
                 >
                     portfolio
                 </Link>
-                <Link
-                    className="navigation-bar__item"
-                    activeClassName="link-active"
-                    to="/blogs"
-                    style={{ ...linkStyles, opacity: pathname.includes("blogs") ? 0.5 : 1 }}
-                >
-                    blogs
-                </Link>
+                {blogCount ? (
+                    <Link
+                        className="navigation-bar__item"
+                        activeClassName="link-active"
+                        to="/blogs"
+                        style={{ ...linkStyles, opacity: pathname.includes("blogs") ? 0.5 : 1 }}
+                    >
+                        blogs
+                    </Link>
+                ) : null}
             </nav>
         </div>
     )
