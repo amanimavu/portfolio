@@ -2,8 +2,19 @@ import { Link } from "gatsby"
 import React, { CSSProperties, useMemo } from "react"
 import { ReactComponent as HomeIcon } from "images/svgs/home-icon.svg"
 import { useScreens } from "utils/hooks";
+import { graphql, useStaticQuery } from "gatsby"
 
-export function Navbar({ pathname, blogCount }: { pathname: string; blogCount: number }) {
+export function Navbar({ pathname}: { pathname: string}) {
+    const {
+            allContentfulBlog: { totalCount: blogCount },
+        } = useStaticQuery<Queries.AllBlogsCountQuery>(graphql`
+            query AllBlogsCount {
+                allContentfulBlog(filter: { node_locale: { eq: "en-US" } }) {
+                    totalCount
+                }
+            }
+        `)
+    
     const navBarStyles = useMemo(() => {
         const styles: CSSProperties = {}
         if (!["/", "/about-me/"].includes(pathname)) {
