@@ -39,7 +39,7 @@ export default function BlogIndexPage({ data }: PageProps<Queries.AllBlogsQuery>
                     </button>
                 </div>
             </div>
-            {data.allContentfulBlog.nodes.map(({ title, blogDate, preview, id, slug }) => (
+            {data.allContentfulBlog.nodes.map(({ title, blogDate, preview, id, slug }, index) => (
                 <BlogPreview
                     key={id}
                     {...{
@@ -47,6 +47,7 @@ export default function BlogIndexPage({ data }: PageProps<Queries.AllBlogsQuery>
                         date: blogDate,
                         preview,
                         slug,
+                        index
                     }}
                 />
             ))}
@@ -57,7 +58,7 @@ export default function BlogIndexPage({ data }: PageProps<Queries.AllBlogsQuery>
 export const Head: HeadFC = () => <SEO title="Amani's blogs" />
 
 export const query = graphql`
-    query AllBlogs($tag: String, $offset: Int = 0, $limit: Int = 1) {
+    query AllBlogs($tag: String, $offset: Int = 0, $limit: Int = 5) {
         allContentfulBlog(
             filter: { node_locale: { eq: "en-US" }, tags: { elemMatch: { name: {}, slug: { eq: $tag } } } }
             limit: $limit
