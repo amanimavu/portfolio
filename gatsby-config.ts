@@ -14,7 +14,7 @@ const config: GatsbyConfig = {
         title: `Amani Mavu | Web Developer & Tech Blogger`,
         description: `Welcome to the personal portfolio of Amani Mavu — a web developer passionate about building fast, accessible websites and sharing insights on software development through blog posts.`,
         image: `/amani_portfolio_site.png`,
-        siteUrl: `https://www.yourdomain.tld`,
+        siteUrl: `https://amani-mavu.is-a.dev/`,
     },
     // More easily incorporate content into your pages through automatic TypeScript type generation and better GraphQL IntelliSense.
     // If you use VSCode you can also use the GraphQL plugin
@@ -23,7 +23,17 @@ const config: GatsbyConfig = {
     plugins: [
         // 'gatsby-plugin-google-gtag',
         "gatsby-plugin-image",
-        "gatsby-plugin-sitemap",
+        {
+            resolve: "gatsby-plugin-sitemap",
+            options: {
+                serialize: ({ path, modifiedGmt }: { path: object; modifiedGmt: object }) => {
+                    return {
+                        url: path,
+                        lastmod: modifiedGmt,
+                    }
+                },
+            },
+        },
         "gatsby-plugin-sharp",
         "gatsby-transformer-sharp",
         "gatsby-plugin-tsconfig-paths",
