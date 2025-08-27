@@ -10,18 +10,18 @@ export function RootLayout({ children, ...props }: { children: ReactNode }) {
     } = props as PageProps
 
     return (
-        <section style={{ overflowX: "hidden" }} id="root-layout">
-            <div id="mobile-layout">
+        <>
+            <div className="root-layout" id="desktop-layout">
+                <Navbar pathname={pathname} />
+                <Sidebar path={pathname} />
+                <main>{children}</main>
+            </div>
+            <div className="root-layout" id="mobile-layout">
                 <Navbar pathname={pathname} />
                 <main>{children}</main>
 
                 <SocialBar />
             </div>
-            <div id="desktop-layout">
-                <Navbar pathname={pathname} />
-                <Sidebar path={pathname} />
-                <main>{children}</main>
-            </div>
-        </section>
+        </>
     )
 }

@@ -78,9 +78,10 @@ button:disabled {
     opacity: 0.5;
 }
 
-#root-layout {
+.root-layout {
     padding: 0 var(--main-padding-x) var(--main-padding-y) var(--main-padding-x);
     min-height: 100vh;
+    overflow-x: hidden;
 }
 
 #mobile-layout {
