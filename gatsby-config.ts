@@ -23,17 +23,7 @@ const config: GatsbyConfig = {
     plugins: [
         // 'gatsby-plugin-google-gtag',
         "gatsby-plugin-image",
-        {
-            resolve: "gatsby-plugin-sitemap",
-            options: {
-                serialize: ({ path, modifiedGmt }: { path: object; modifiedGmt: object }) => {
-                    return {
-                        url: path,
-                        lastmod: modifiedGmt,
-                    }
-                },
-            },
-        },
+        "gatsby-plugin-sitemap",
         "gatsby-plugin-sharp",
         "gatsby-transformer-sharp",
         "gatsby-plugin-tsconfig-paths",
