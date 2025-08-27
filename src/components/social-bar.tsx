@@ -1,17 +1,12 @@
-import React from 'react'
-import { ReactComponent as LinkedIn } from 'images/svgs/linkedin-icon.svg'
-import { ReactComponent as Github } from 'images/svgs/github-icon.svg'
-import { ReactComponent as Instagram } from 'images/svgs/instagram-icon.svg'
+import React from "react"
+import { ReactComponent as LinkedIn } from "images/svgs/linkedin-icon.svg"
+import { ReactComponent as Github } from "images/svgs/github-icon.svg"
+import { ReactComponent as Instagram } from "images/svgs/instagram-icon.svg"
 
 export default function SocialBar() {
     return (
         <div id="social-bar">
-            <a
-                className="socials-item"
-                target="_blank"
-                href="https://github.com/amanimavu"
-                rel="noopener noreferrer"
-            >
+            <a className="socials-item" target="_blank" href="https://github.com/amanimavu" rel="noopener noreferrer">
                 <Github />
             </a>
 
@@ -27,10 +22,10 @@ export default function SocialBar() {
             <a
                 className="socials-item"
                 target="_blank"
-                href="https://www.linkedin.com/in/amani-mavu/"
+                href="https://www.instagram.com/it_is_mkongo/"
                 rel="noopener noreferrer"
             >
-                <Instagram style={{ stroke: 'orange' }} />
+                <Instagram />
             </a>
         </div>
     )

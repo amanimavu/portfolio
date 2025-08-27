@@ -83,6 +83,13 @@ button:disabled {
     min-height: 100vh;
 }
 
+#mobile-layout {
+    display: none;
+}
+#desktop-layout {
+    display: block;
+}
+
 .navigation-bar {
     width: 100%;
     display: flex;
@@ -139,7 +146,7 @@ button:disabled {
     display: inline-flex;
     flex-direction: column;
     justify-content: space-between;
-    height: calc(100% - (1 * var(--main-padding-y)));
+    min-height: calc(100% - (1 * var(--main-padding-y)));
     z-index: 200;
 }
 
@@ -199,7 +206,6 @@ button:disabled {
 #landing-page {
     min-height: var(--content-height);
     position: relative;
-
     mask-image: var(--mask-url);
     mask-size: cover;
     mask-position: center;
@@ -244,13 +250,13 @@ button:disabled {
     line-height: var(--line-height-lg);
 }
 
-.my-image {
+.my-image.desktop {
     margin-top: calc(-2 * (var(--main-padding-y) + 1.5em));
     margin-bottom: calc(-1 * calc(var(--main-padding-y)));
     margin-right: calc(-1 * var(--main-padding-x));
 }
 
-.my-image::before {
+.my-image.desktop::before {
     content: "";
     display: block;
     width: 100%;
@@ -259,6 +265,10 @@ button:disabled {
     position: absolute;
     background-color: #111111;
     mix-blend-mode: hue;
+}
+
+.my-image.mobile{
+    display: none;
 }
 
 .portfolio {
@@ -463,7 +473,7 @@ button:disabled {
 .blog-preview {
     border: solid var(--primary-color) 2px;
     animation-name: slide-in-up;
-    animation-duration: 1s;
+    animation-duration: 0.6s;
     animation-delay: calc(var(--animation-order) * 150ms);
     animation-fill-mode: both;
 }
@@ -906,12 +916,35 @@ mark {
 }
 
 @media (width <= 576px) {
+    #mobile-layout {
+        display: block;
+    }
+    #desktop-layout {
+        display: none;
+    }
     .navigation-bar {
         backdrop-filter: blur(5px);
     }
 
+    #landing-page {
+        margin-top: -2em;
+    }
+
     .navigation-bar-container {
         width: 100%;
+    }
+
+    #tools-of-trade{
+        display: none;
+    }
+
+    .my-image.mobile{
+        display: block;
+        mask-image: linear-gradient(transparent 1%, black 30%, transparent 98%);
+    }
+
+    .my-image.desktop{
+        display: none;
     }
 
     :root {
@@ -927,6 +960,7 @@ mark {
 
     #about-me {
         grid-template-columns: 1fr;
+        margin-top: -2em;
     }
 
     #about-me > *:nth-child(1) {
@@ -1004,6 +1038,10 @@ mark {
     .page404 {
         width: 100%;
         height: auto;
+    }
+
+    .sidebar {
+        display: none;
     }
 }
 

@@ -86,14 +86,10 @@ export function Sidebar({ path }: { path: PageProps["location"]["pathname"] }) {
                 <a
                     className="socials-item"
                     target="_blank"
-                    href="https://www.linkedin.com/in/amani-mavu/"
+                    href="https://www.instagram.com/it_is_mkongo/"
                     rel="noopener noreferrer"
                 >
-                    <Instagram
-                        style={{
-                            stroke: "orange",
-                        }}
-                    />
+                    <Instagram />
                 </a>
             </div>
         </aside>

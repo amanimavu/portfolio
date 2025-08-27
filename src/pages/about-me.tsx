@@ -8,10 +8,8 @@ import { ReactComponent as ReactIcon } from "images/svgs/tools/react.svg"
 import { ReactComponent as NextIcon } from "images/svgs/tools/nextjs.svg"
 import { ReactComponent as PhpIcon } from "images/svgs/tools/php.svg"
 import { ReactComponent as MysqlIcon } from "images/svgs/tools/mysql.svg"
-import { useScreens } from "utils/hooks"
 
 export default function AboutMe() {
-    const [md] =useScreens()
     return (
         <AboutTemplate>
             <p>
@@ -23,14 +21,14 @@ export default function AboutMe() {
                 I am just going to leave this here <mark>amanimavu@gmail.com</mark>
             </p>
 
-            {!md ? <section id="tools-of-trade">
+            <section id="tools-of-trade">
                 <JavaScriptIcon id="javascript" className="icon" />
                 <TypescriptIcon id="typescript" className="icon" />
                 <ReactIcon id="react" className="icon" />
                 <NextIcon id="next" className="icon" />
                 <PhpIcon id="php" className="icon" />
                 <MysqlIcon id="mysql" className="icon" />
-            </section>: null}
+            </section>
         </AboutTemplate>
     )
 }

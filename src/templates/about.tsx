@@ -7,7 +7,7 @@ export const AboutTemplate = ({ children }: { children: ReactNode }) => {
     return (
         <div id="about-me">
             <article>{children}</article>
-            {xs ? (
+            
                 <StaticImage
                     style={{
                         gridArea: "1/1",
@@ -21,16 +21,16 @@ export const AboutTemplate = ({ children }: { children: ReactNode }) => {
                     // Assisi, Perúgia, Itália by Bernardo Ferrari, via Unsplash
                     src="../images/pngs/me.png"
                     formats={["auto", "webp", "avif"]}
-                />
-            ) : (
+                    className="my-image mobile"
+            />
+            
                 <StaticImage
                     src="../images/pngs/me.png"
                     alt="Amani Mavu"
                     layout="fullWidth"
-                    className="my-image"
+                    className="my-image desktop"
                     placeholder="blurred"
                 />
-            )}
         </div>
     )
 }

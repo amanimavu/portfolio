@@ -1,7 +1,6 @@
 import React, { CSSProperties, useEffect, useMemo } from "react"
 import { Link } from "gatsby"
 import { formatDate } from "utils/date"
-import { useScreens } from "src/utils/hooks"
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 import hljs from "highlight.js"
 //@ts-ignore
@@ -16,7 +15,6 @@ type BlogPreviewProps<
 }
 
 export function BlogPreview({ title, date, preview, slug, index }: BlogPreviewProps) {
-    const [xs] = useScreens()
 
     return (
         <article className="blog-preview" style={{ "--animation-order": index } as CSSProperties}>
@@ -57,8 +55,6 @@ export function BlogEntry(props: BlogEntryProps) {
             }
         })
     }, [])
-
-    const [xs] = useScreens()
 
     return (
         <>
