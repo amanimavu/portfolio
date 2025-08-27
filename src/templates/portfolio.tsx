@@ -46,7 +46,7 @@ export const ExperienceTemplate = ({ experience }: { experience: readonly Experi
     }, [])
 
     useEffect(() => {
-        const description = document.querySelector("#experience .description")
+        const description = document.querySelector("#desktop-layout #experience .description")
 
         const observer = description && createObserver(description)
         observer && observer.observe(description)
@@ -174,7 +174,7 @@ export const ProjectTemplate = ({ projects }: { projects: readonly Project[] }) 
     }, [])
 
     useEffect(() => {
-        const description = document.querySelector("#projects .description")
+        const description = document.querySelector("#desktop-layout #projects .description")
 
         const observer = description && createObserver(description)
         observer && observer.observe(description)

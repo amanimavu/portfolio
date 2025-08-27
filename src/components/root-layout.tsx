@@ -11,16 +11,19 @@ export function RootLayout({ children, ...props }: { children: ReactNode }) {
 
     return (
         <>
-            <div className="root-layout" id="desktop-layout">
-                <Navbar pathname={pathname} />
-                <Sidebar path={pathname} />
-                <main>{children}</main>
-            </div>
+            {/* mobile layout */}
             <div className="root-layout" id="mobile-layout">
                 <Navbar pathname={pathname} />
                 <main>{children}</main>
 
                 <SocialBar />
+            </div>
+
+            {/* desktop layout */}
+            <div className="root-layout" id="desktop-layout">
+                <Navbar pathname={pathname} />
+                <Sidebar path={pathname} />
+                <main>{children}</main>
             </div>
         </>
     )
