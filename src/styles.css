@@ -268,7 +268,7 @@ button:disabled {
     mix-blend-mode: hue;
 }
 
-.my-image.mobile{
+.my-image.mobile {
     display: none;
 }
 
@@ -595,7 +595,7 @@ html[data-theme="light"] {
     bottom: 0;
     left: 0;
     gap: 40px;
-    padding: var(--main-padding-y) var(--main-padding-x);
+    padding: calc(var(--main-padding-y) * 2) var(--main-padding-x);
     background-color: var(--secondary-color);
     width: 100%;
 }
@@ -935,16 +935,16 @@ mark {
         width: 100%;
     }
 
-    #tools-of-trade{
+    #tools-of-trade {
         display: none;
     }
 
-    .my-image.mobile{
+    .my-image.mobile {
         display: block;
         mask-image: linear-gradient(transparent 1%, black 30%, transparent 98%);
     }
 
-    .my-image.desktop{
+    .my-image.desktop {
         display: none;
     }
 
@@ -998,6 +998,10 @@ mark {
     }
     #experience:has(+ #projects) {
         margin-bottom: 8vh;
+    }
+
+    div:has(details[name="projects"]:last-child) {
+        margin-bottom: calc((var(--main-padding-y) * 2) + 1.05em);
     }
 
     .portfolio > *:nth-child(2) {
