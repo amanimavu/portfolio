@@ -920,6 +920,10 @@ mark {
     #mobile-layout {
         display: block;
     }
+
+    main:has(.blog){
+        padding-bottom: calc((var(--main-padding-y) * 2) + 1.05em);
+    }
     #desktop-layout {
         display: none;
     }
