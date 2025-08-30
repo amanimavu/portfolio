@@ -1,7 +1,7 @@
 import { graphql, HeadFC, useStaticQuery } from "gatsby"
 import React from "react"
-import favicon from "../images/pngs/favicon.png"
 import { ExperienceTemplate, ProjectTemplate } from "templates/portfolio"
+import { SEO } from "components/seo"
 
 export default function Portfolio() {
     const {
@@ -41,12 +41,12 @@ export default function Portfolio() {
     )
 }
 
-export const Head: HeadFC = () => {
+export const Head: HeadFC = ({ location }) => {
     return (
-        <>
-            <title id="title">Amani's portfolio</title>
-            <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1" />
-            <link id="icon" rel="icon" href={favicon} />
-        </>
+        <SEO
+            title="Portfolio & Experience | Amani Mavu, Frontend Web Developer"
+            description="Portfolio and work experience of Amani Mavu — frontend developer building scalable, responsive web applications and contributing to impactful software projects"
+            pathname={location.pathname}
+        />
     )
 }
