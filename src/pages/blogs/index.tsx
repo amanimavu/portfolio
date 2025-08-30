@@ -47,7 +47,7 @@ export default function BlogIndexPage({ data }: PageProps<Queries.AllBlogsQuery>
                         date: blogDate,
                         preview,
                         slug,
-                        index
+                        index,
                     }}
                 />
             ))}
@@ -55,7 +55,15 @@ export default function BlogIndexPage({ data }: PageProps<Queries.AllBlogsQuery>
     )
 }
 
-export const Head: HeadFC = () => <SEO title="Amani's blogs" />
+export const Head: HeadFC = ({ location }) => {
+    return (
+        <SEO
+            title="Amani Mavu Blog | Web Development Insights & Tutorials"
+            description="Read articles by Amani Mavu on web development, frontend best practices, and software insights. Learn, explore, and stay inspired through hands-on tutorials."
+            pathname={location.pathname}
+        />
+    )
+}
 
 export const query = graphql`
     query AllBlogs($tag: String, $offset: Int = 0, $limit: Int = 5) {

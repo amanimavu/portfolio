@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react"
 import { HeadFC, PageProps, navigate } from "gatsby"
+import { SEO } from "components/seo"
 
 const NotFoundPage: React.FC<PageProps> = () => {
     return (
@@ -89,4 +90,12 @@ const NotFoundPage: React.FC<PageProps> = () => {
 
 export default NotFoundPage
 
-export const Head: HeadFC = () => <title>Not found</title>
+export const Head: HeadFC = ({ location }) => {
+    return (
+        <SEO
+            title="Page Not Found | Amani Mavu Portfolio"
+            description="Lost in the code? This page doesn’t exist — but my portfolio does. Explore Amani Mavu’s frontend web development work from the navigation above."
+            pathname={location.pathname}
+        />
+    )
+}

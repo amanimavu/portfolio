@@ -33,6 +33,12 @@ export default function AboutMe() {
     )
 }
 
-export const Head: HeadFC = () => {
-    return <SEO title="About Amani" />
+export const Head: HeadFC = ({ location }) => {
+    return (
+        <SEO
+            title="About Amani Mavu | Frontend Web Developer"
+            description="Get to know Amani Mavu — a frontend web developer blending problem-solving with clean design and modern technologies to create intuitive digital experiences."
+            pathname={location.pathname}
+        />
+    )
 }

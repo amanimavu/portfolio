@@ -17,8 +17,14 @@ export default function Component({ data: { contentfulBlog } }: PageProps<Querie
     )
 }
 
-export const Head: HeadFC = () => {
-    return <SEO title="blog" />
+export const Head: HeadFC<Queries.SingleBlogQuery> = ({ data: { contentfulBlog }, location }) => {
+    return (
+        <SEO
+            title={`${contentfulBlog?.title ?? null} | Amani Mavu`}
+            pathname={location.pathname}
+            description={contentfulBlog?.description ?? undefined}
+        />
+    )
 }
 
 export const query = graphql`
@@ -30,6 +36,7 @@ export const query = graphql`
             }
             title
             blogDate
+            description
         }
     }
 `
