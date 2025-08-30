@@ -13,13 +13,13 @@ export default function AboutMe() {
     return (
         <AboutTemplate>
             <p>
-                I'm Amani Mavu, a self-taught software developer with a background in applied mathematics. My passion
-                for problem-solving led me to front-end development, where I specialize in building intuitive and
-                high-performing web applications.
+                I’m Amani Mavu, a self-taught software developer with a background in applied mathematics. My journey
+                into tech started from a love of problem-solving and curiosity about how things work. Today, I
+                specialize in front-end development, where I enjoy building fast, intuitive, and user-focused web
+                applications.
             </p>
-            <p>
-                I am just going to leave this here <mark>amanimavu@gmail.com</mark>
-            </p>
+
+            <mark>amanimavu@gmail.com</mark>
 
             <section id="tools-of-trade">
                 <JavaScriptIcon id="javascript" className="icon" />
