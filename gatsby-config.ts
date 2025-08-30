@@ -12,7 +12,7 @@ const config: GatsbyConfig = {
     }),
     siteMetadata: {
         title: `Amani Mavu | Web Developer & Tech Blogger`,
-        description: `Welcome to the personal portfolio of Amani Mavu — a web developer passionate about building fast, accessible websites and sharing insights on software development through blog posts.`,
+        description: `Portfolio of Amani Mavu — Frontend Web Developer skilled in JavaScript, TypeScript, and React. Showcasing projects, problem-solving, and user-focused apps.`,
         image: `/amani_portfolio_site.png`,
         siteUrl: `https://amani-mavu.is-a.dev/`,
     },
