@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react"
 import { useSiteMetadata } from "utils/hooks"
-import favicon from "../images/pngs/favicon.png"
+import favicon from "../images/ico/favicon.ico"
 
 type Props = { title?: string; description?: string; pathname?: string; children?: ReactNode }
 export const SEO = ({ title, description, pathname, children }: Props) => {

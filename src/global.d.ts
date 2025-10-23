@@ -6,6 +6,10 @@ declare module "*.png" {
     export default "" as string
 }
 
+declare module "*.ico" {
+    export default "" as string
+}
+
 declare module "*.css"
 
 declare module "worker-loader!*" {
