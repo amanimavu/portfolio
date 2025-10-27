@@ -46,6 +46,8 @@ export default function Index(props: PageProps) {
                     layout="constrained"
                     width={500}
                     placeholder="blurred"
+                    loading="eager"
+                    fetchPriority="high"
                 />
             ) : (
                 <StaticImage

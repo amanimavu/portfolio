@@ -15,6 +15,7 @@ export const SEO = ({ title, description, pathname, children }: Props) => {
 
     return (
         <>
+            <html lang="en" />
             <title>{seo.title}</title>
             <meta name="image" content={seo.image} />
             <link id="icon" rel="icon" href={favicon} />
