@@ -38,7 +38,7 @@ export function Sidebar({ path }: { path: PageProps["location"]["pathname"] }) {
     return (
         <aside className="sidebar">
             <div>
-                <Link to="/">{path !== "/" ? <HomeIcon /> : null}</Link>
+                <Link to="/" aria-label="Go to homepage">{path !== "/" ? <HomeIcon /> : null}</Link>
                 <button
                     aria-label={isDarkTheme ? "Switch to light theme" : "Switch to dark theme"}
                     onClick={() => {
