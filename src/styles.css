@@ -33,7 +33,7 @@ html {
 }
 
 html * {
-    font-family: var(--primary-font);
+    font-family: var(--primary-font), monospace;
     font-size: 1.05rem;
     color: var(--primary-color);
     margin: 0;
@@ -53,7 +53,7 @@ h4,
 h3,
 h2,
 h1 {
-    font-family: var(--header-font);
+    font-family: var(--header-font), sans-serif;
     margin-bottom: 0.5rem;
 }
 

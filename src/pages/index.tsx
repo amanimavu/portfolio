@@ -44,10 +44,11 @@ export default function Index(props: PageProps) {
                     src="../images/pngs/hero-image-light.png"
                     alt="Amani Mavu logo in dark theme"
                     layout="constrained"
-                    width={500}
                     placeholder="blurred"
                     loading="eager"
                     fetchPriority="high"
+                    width={615}
+                    height={774}
                 />
             ) : (
                 <StaticImage
@@ -55,8 +56,11 @@ export default function Index(props: PageProps) {
                     src="../images/pngs/hero-icon-dark.png"
                     alt="Amani Mavu logo in light theme"
                     layout="constrained"
-                    width={500}
                     placeholder="blurred"
+                    loading="eager"
+                    fetchPriority="high"
+                    width={615}
+                    height={774}
                 />
             )}
         </div>
