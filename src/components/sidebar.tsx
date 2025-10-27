@@ -38,9 +38,9 @@ export function Sidebar({ path }: { path: PageProps["location"]["pathname"] }) {
     return (
         <aside className="sidebar">
             <div>
-                <Link to="/">{path !== "/" ? <HomeIcon /> : null}</Link>
+                <Link to="/" aria-label="Go to homepage">{path !== "/" ? <HomeIcon /> : null}</Link>
                 <button
-                    aria-label=""
+                    aria-label={isDarkTheme ? "Switch to light theme" : "Switch to dark theme"}
                     onClick={() => {
                         const html = document.querySelector(":root")
                         if (isDarkTheme) {
@@ -70,6 +70,7 @@ export function Sidebar({ path }: { path: PageProps["location"]["pathname"] }) {
                     target="_blank"
                     href="https://github.com/amanimavu"
                     rel="noopener noreferrer"
+                    aria-label="Visit my Github profile"
                 >
                     <Github />
                 </a>
@@ -79,6 +80,7 @@ export function Sidebar({ path }: { path: PageProps["location"]["pathname"] }) {
                     target="_blank"
                     href="https://www.linkedin.com/in/amani-mavu/"
                     rel="noopener noreferrer"
+                    aria-label="Visit my LinkedIn profile"
                 >
                     <LinkedIn />
                 </a>
@@ -88,6 +90,7 @@ export function Sidebar({ path }: { path: PageProps["location"]["pathname"] }) {
                     target="_blank"
                     href="https://www.instagram.com/it_is_mkongo/"
                     rel="noopener noreferrer"
+                    aria-label="Visit my Instagram profile"
                 >
                     <Instagram />
                 </a>

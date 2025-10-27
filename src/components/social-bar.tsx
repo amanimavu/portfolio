@@ -6,7 +6,13 @@ import { ReactComponent as Instagram } from "images/svgs/instagram-icon.svg"
 export default function SocialBar() {
     return (
         <div id="social-bar">
-            <a className="socials-item" target="_blank" href="https://github.com/amanimavu" rel="noopener noreferrer">
+            <a
+                className="socials-item"
+                target="_blank"
+                href="https://github.com/amanimavu"
+                rel="noopener noreferrer"
+                aria-label="Visit my Github profile"
+            >
                 <Github />
             </a>
 
@@ -15,6 +21,7 @@ export default function SocialBar() {
                 target="_blank"
                 href="https://www.linkedin.com/in/amani-mavu/"
                 rel="noopener noreferrer"
+                aria-label="Visit my LinkedIn profile"
             >
                 <LinkedIn />
             </a>
@@ -24,6 +31,7 @@ export default function SocialBar() {
                 target="_blank"
                 href="https://www.instagram.com/it_is_mkongo/"
                 rel="noopener noreferrer"
+                aria-label="Visit my Instagram profile"
             >
                 <Instagram />
             </a>
