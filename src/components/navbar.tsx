@@ -40,6 +40,7 @@ export function Navbar({ pathname }: { pathname: string }) {
                         className="navigation-bar__item"
                         activeClassName="link-active"
                         to="/"
+                        aria-label="Go to homepage"
                         style={{ ...linkStyles, opacity: pathname.includes("/") ? 0.5 : 1, transform: "scale(0.7)" }}
                     >
                         <HomeIcon />
