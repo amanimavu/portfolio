@@ -49,7 +49,6 @@ export default function Index(props: PageProps) {
                     fetchPriority="high"
                     width={615}
                     height={774}
-                    rel="preload"
                 />
             ) : (
                 <StaticImage
@@ -62,7 +61,6 @@ export default function Index(props: PageProps) {
                     fetchPriority="high"
                     width={615}
                     height={774}
-                    rel="preload"
                 />
             )}
         </div>
