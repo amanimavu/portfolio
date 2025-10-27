@@ -61,4 +61,8 @@ export default function Index(props: PageProps) {
     )
 }
 
-export const Head: HeadFC = () => <SEO />
+export const Head: HeadFC = () => (
+    <SEO>
+        <meta name="google-site-verification" content="ZI2DXLtpwpSRYaZGKnP41kfvGemf3gYwJluvF2VkJ3M" />
+    </SEO>
+)
