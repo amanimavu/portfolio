@@ -10,6 +10,10 @@ declare module "*.ico" {
     export default "" as string
 }
 
+declare module "*.gif" {
+    export default "" as string
+}
+
 declare module "*.css"
 
 declare module "worker-loader!*" {
@@ -29,4 +33,19 @@ declare module "*.svg" {
     export const ReactComponent: React.FC<React.SVGProps<SVGSVGElement>>
     const src: string
     export default src
+}
+
+interface NetworkInformation extends EventTarget {
+    readonly effectiveType?: "2g" | "3g" | "4g" | "slow-2g"
+    readonly downlinkMax?: number
+    readonly downlink?: number
+    readonly rtt?: number
+    readonly saveData?: boolean
+    onchange?: EventListener
+}
+
+interface Navigator extends NavigatorNetworkInformation {}
+
+interface NavigatorNetworkInformation {
+    readonly connection?: NetworkInformation
 }

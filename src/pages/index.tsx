@@ -1,8 +1,11 @@
-import React, { CSSProperties, useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import type { HeadFC, PageProps } from "gatsby"
 import { StaticImage } from "gatsby-plugin-image"
 import { SEO } from "components/seo"
-import { useCurrentTheme, useScreens } from "utils/hooks"
+import { useCurrentTheme, useNetworkInfo } from "utils/hooks"
+
+import maskPng from "../images/pngs/mask-black.png"
+import maskGif from "../images/gifs/transparent-ink.gif"
 
 export default function Index(props: PageProps) {
     const [isDarkTheme, setIsDarkTheme] = useState<boolean>(true)
@@ -35,6 +38,17 @@ export default function Index(props: PageProps) {
             window.removeEventListener("theme", reflectCurrentTheme)
         }
     }, [getCurrentTheme])
+
+    const optimizeForSlowNetwork = useNetworkInfo()
+
+    useEffect(() => {
+        const root = document.documentElement
+        if (optimizeForSlowNetwork) {
+            root.style.setProperty("--mask-url", `url(${maskPng})`)
+        } else {
+            root.style.setProperty("--mask-url", `url(${maskGif})`)
+        }
+    }, [optimizeForSlowNetwork])
 
     return (
         <div id="landing-page">
