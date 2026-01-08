@@ -93,3 +93,29 @@ export const useCurrentTheme = () => {
         return "dark"
     }, [])
 }
+
+export const useNetworkInfo = () => {
+    const [optimize, setOptimize] = useState(true)
+    useEffect(() => {
+        const navigator = window.navigator
+        const networkInfo = navigator.connection
+
+        function modifyOptimization() {
+            const dataSaverIsOn = networkInfo?.saveData ?? true
+            const downLinkSpeedIsGood = (networkInfo?.downlink ?? 0) > 10
+            const latencyIsLow = (networkInfo?.rtt ?? 200) < 50
+
+            if (!dataSaverIsOn && downLinkSpeedIsGood && latencyIsLow) {
+                setOptimize(false)
+            } else {
+                setOptimize(true)
+            }
+        }
+        modifyOptimization()
+        networkInfo?.addEventListener("change", modifyOptimization)
+
+        return () => networkInfo?.removeEventListener("change", modifyOptimization)
+    }, [])
+
+    return optimize
+}
