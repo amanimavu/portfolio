@@ -108,7 +108,7 @@ export const useNetworkInfo = () => {
             if (!dataSaverIsOn && downLinkSpeedIsGood && latencyIsLow) {
                 setOptimize(false)
             } else {
-                !optimize && setOptimize(true)
+                setOptimize(true)
             }
         }
         modifyOptimization()
