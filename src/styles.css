@@ -329,6 +329,13 @@ button:disabled {
     flex-direction: column;
     grid-column: 8 / 13;
     margin: 32px 12px;
+    max-height: 75%;
+    overflow-y: auto;
+    scrollbar-width: none;
+}
+
+.portfolio .description h4:first-child {
+    filter: brightness(0.75);
 }
 
 .portfolio .description > * {
