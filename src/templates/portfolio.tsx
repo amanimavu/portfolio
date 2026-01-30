@@ -3,6 +3,7 @@ import { Collapse } from "components/collapse"
 import { Divider } from "components/divider"
 import React, { CSSProperties, useEffect, useMemo, useState } from "react"
 import { useScreens } from "src/utils/hooks"
+import { formatDate } from "utils/date"
 
 const createObserver = (target: Element) => {
     const options: IntersectionObserverInit = {
@@ -134,9 +135,13 @@ export const ExperienceTemplate = ({ experience }: { experience: readonly Experi
                         <Divider />
                         <article className="description">
                             <h4 style={{ "--animation-order": 0 } as React.CSSProperties}>
-                                <span>{description?.startDate ?? null}</span>
+                                <span>{formatDate(description?.startDate ?? null, false)}</span>
                                 <span> - </span>
-                                <span>{description?.currentJob ? "to date" : (description?.endDate ?? null)}</span>
+                                <span>
+                                    {description?.currentJob
+                                        ? "to date"
+                                        : formatDate(description?.endDate ?? null, false)}
+                                </span>
                             </h4>
                             <h4 style={{ "--animation-order": 1 } as React.CSSProperties}>
                                 {description?.title ?? null}
