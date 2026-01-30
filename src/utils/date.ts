@@ -13,10 +13,13 @@ const monthMap = new Map([
     ["12", "December"],
 ])
 
-export const formatDate = (date: string) => {
+export const formatDate = (date: string | null, withDay: boolean = true) => {
+    if (date === null) {
+        return null
+    }
     const [dateString] = date.split("T")
     let [year, month, day] = dateString.split("-")
     month = monthMap.get(month) ?? ""
 
-    return `${month} ${day}, ${year}`
+    return withDay ? `${month} ${day}, ${year}` : `${month}, ${year}`
 }
