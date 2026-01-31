@@ -1,8 +1,8 @@
 import { DisplayChip } from "components/chips"
 import { Collapse } from "components/collapse"
 import { Divider } from "components/divider"
-import React, { CSSProperties, useEffect, useMemo, useState } from "react"
-import { useScreens } from "src/utils/hooks"
+import React, { CSSProperties, useEffect, useMemo, useRef, useState } from "react"
+import { useAutoscrollHint, useScreens } from "src/utils/hooks"
 import { formatDate } from "utils/date"
 
 const createObserver = (target: Element) => {
@@ -31,6 +31,9 @@ export const ExperienceTemplate = ({ experience }: { experience: readonly Experi
     const [xs] = useScreens()
     const [description, setDescription] = useState<Omit<Experience, "id"> | null>(null)
     const [activeKey, setActiveKey] = useState(experience[0]["id"])
+    const descriptionRef = useRef<HTMLElement>(null)
+
+    useAutoscrollHint(descriptionRef, description)
 
     useEffect(() => {
         const filters = Array.from(document.querySelectorAll("#experience ul.labels li"))
@@ -133,7 +136,7 @@ export const ExperienceTemplate = ({ experience }: { experience: readonly Experi
                             ))}
                         </ul>
                         <Divider />
-                        <article className="description">
+                        <article className="description" ref={descriptionRef}>
                             <h4 style={{ "--animation-order": 0 } as React.CSSProperties}>
                                 <span>{formatDate(description?.startDate ?? null, false)}</span>
                                 <span> - </span>
@@ -163,6 +166,9 @@ export const ProjectTemplate = ({ projects }: { projects: readonly Project[] }) 
     const [description, setDescription] = useState<Omit<Project, "id"> | null>(null)
     const [activeKey, setActiveKey] = useState(projects[0]["id"])
     const [xs] = useScreens()
+    const descriptionRef = useRef<HTMLElement>(null)
+
+    useAutoscrollHint(descriptionRef, description)
 
     useEffect(() => {
         const filters = Array.from(document.querySelectorAll("#projects ul.labels li"))
@@ -267,7 +273,7 @@ export const ProjectTemplate = ({ projects }: { projects: readonly Project[] }) 
                             ))}
                         </ul>
                         <Divider />
-                        <article className="description">
+                        <article className="description" ref={descriptionRef}>
                             <h4 style={{ "--animation-order": 0 } as CSSProperties}>
                                 <a target="_blank" rel="noopener noreferrer" href={description?.url ?? "#"}>
                                     {description?.url ?? null}

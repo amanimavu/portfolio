@@ -119,3 +119,29 @@ export const useNetworkInfo = () => {
 
     return optimize
 }
+
+export const useAutoscrollHint = (ref: React.RefObject<HTMLElement>, dependency: unknown) => {
+    useEffect(() => {
+        const element = ref.current
+        if (!element) return
+
+        element.scrollTop = 0
+
+        let innerTimer: ReturnType<typeof setTimeout>
+
+        const timer = setTimeout(() => {
+            if (element.scrollHeight > element.clientHeight) {
+                const scrollableHeight = element.scrollHeight - element.clientHeight
+                element.scrollBy({ top: scrollableHeight, behavior: "smooth" })
+                innerTimer = setTimeout(() => {
+                    element.scrollBy({ top: scrollableHeight * -1, behavior: "smooth" })
+                }, 1200)
+            }
+        }, 1000)
+
+        return () => {
+            clearTimeout(timer)
+            clearTimeout(innerTimer)
+        }
+    }, [dependency])
+}
