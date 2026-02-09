@@ -41,11 +41,9 @@ export const usePreferredTheme = (onDark: () => void, onLight: () => void) => {
             if (theme === null && html) {
                 if (e.matches) {
                     onLight()
-                    html.setAttribute("style", "color-scheme: light")
                     html.setAttribute("data-theme", "light")
                 } else {
                     onDark()
-                    html.setAttribute("style", "color-scheme: dark")
                     html.setAttribute("data-theme", "dark")
                 }
             }
