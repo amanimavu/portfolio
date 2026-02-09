@@ -102,8 +102,8 @@ export const useNetworkInfo = () => {
 
         function modifyOptimization() {
             const dataSaverIsOn = networkInfo?.saveData ?? true
-            const downLinkSpeedIsGood = (networkInfo?.downlink ?? 0) > 10
-            const latencyIsLow = (networkInfo?.rtt ?? 200) < 50
+            const downLinkSpeedIsGood = (networkInfo?.downlink ?? 0) > 5
+            const latencyIsLow = (networkInfo?.rtt ?? 200) < 200
 
             if (!dataSaverIsOn && downLinkSpeedIsGood && latencyIsLow) {
                 setOptimize(false)
