@@ -28,6 +28,19 @@ const config: GatsbyConfig = {
         "gatsby-plugin-tsconfig-paths",
         "gatsby-plugin-svgr",
         {
+            resolve: "gatsby-plugin-csp",
+            options: {
+                mergeScriptHashes: false,
+                mergeStyleHashes: false,
+                directives: {
+                    "script-src": "'self' 'unsafe-inline'",
+                    "style-src": "'self' 'unsafe-inline' https://fonts.googleapis.com",
+                    "font-src": "'self' data: https://fonts.gstatic.com",
+                    "img-src": "'self' data: https://images.ctfassets.net",
+                },
+            },
+        },
+        {
             resolve: "gatsby-plugin-sitemap",
             options: {
                 // https://www.gatsbyjs.com/plugins/gatsby-plugin-sitemap/#options
