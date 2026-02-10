@@ -24,7 +24,7 @@
     /* area dimensions */
     --content-height: calc(100vh - (3 * var(--main-padding-y)) - var(--line-height-lg));
 
-    --mask-url: none;
+    --mask-url: url("./images/gifs/transparent-ink.gif");
     color-scheme: dark;
 }
 
