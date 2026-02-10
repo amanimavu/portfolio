@@ -41,11 +41,9 @@ export const usePreferredTheme = (onDark: () => void, onLight: () => void) => {
             if (theme === null && html) {
                 if (e.matches) {
                     onLight()
-                    html.setAttribute("style", "color-scheme: light")
                     html.setAttribute("data-theme", "light")
                 } else {
                     onDark()
-                    html.setAttribute("style", "color-scheme: dark")
                     html.setAttribute("data-theme", "dark")
                 }
             }
@@ -102,8 +100,8 @@ export const useNetworkInfo = () => {
 
         function modifyOptimization() {
             const dataSaverIsOn = networkInfo?.saveData ?? true
-            const downLinkSpeedIsGood = (networkInfo?.downlink ?? 0) > 10
-            const latencyIsLow = (networkInfo?.rtt ?? 200) < 50
+            const downLinkSpeedIsGood = (networkInfo?.downlink ?? 0) > 5
+            const latencyIsLow = (networkInfo?.rtt ?? 200) < 200
 
             if (!dataSaverIsOn && downLinkSpeedIsGood && latencyIsLow) {
                 setOptimize(false)

@@ -19,12 +19,10 @@ export function Sidebar({ path }: { path: PageProps["location"]["pathname"] }) {
         if (currentTheme === "light") {
             setIsDarkTheme(false)
             if (html) {
-                html.setAttribute("style", "color-scheme: light")
                 html.setAttribute("data-theme", "light")
             }
         } else {
             if (html) {
-                html.setAttribute("style", "color-scheme: dark")
                 html.setAttribute("data-theme", "dark")
             }
         }
@@ -38,7 +36,9 @@ export function Sidebar({ path }: { path: PageProps["location"]["pathname"] }) {
     return (
         <aside className="sidebar">
             <div>
-                <Link to="/" aria-label="Go to homepage">{path !== "/" ? <HomeIcon /> : null}</Link>
+                <Link to="/" aria-label="Go to homepage">
+                    {path !== "/" ? <HomeIcon /> : null}
+                </Link>
                 <button
                     aria-label={isDarkTheme ? "Switch to light theme" : "Switch to dark theme"}
                     onClick={() => {
