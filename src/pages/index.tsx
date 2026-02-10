@@ -4,7 +4,6 @@ import { StaticImage } from "gatsby-plugin-image"
 import { SEO } from "components/seo"
 import { useCurrentTheme, useNetworkInfo } from "utils/hooks"
 
-import maskPng from "../images/pngs/mask-black.png"
 import maskGif from "../images/gifs/transparent-ink.gif"
 
 export default function Index(props: PageProps) {
@@ -44,7 +43,7 @@ export default function Index(props: PageProps) {
     useEffect(() => {
         const root = document.documentElement
         if (optimizeForSlowNetwork) {
-            root.style.setProperty("--mask-url", `url(${maskPng})`)
+            root.style.setProperty("--mask-url", "none")
         } else {
             root.style.setProperty("--mask-url", `url(${maskGif})`)
         }
