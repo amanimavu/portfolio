@@ -1,43 +1,12 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect } from "react"
 import type { HeadFC, PageProps } from "gatsby"
 import { StaticImage } from "gatsby-plugin-image"
 import { SEO } from "components/seo"
-import { useCurrentTheme, useNetworkInfo } from "utils/hooks"
+import { useNetworkInfo } from "utils/hooks"
 
 import maskGif from "../images/gifs/transparent-ink.gif"
 
 export default function Index(props: PageProps) {
-    const [isDarkTheme, setIsDarkTheme] = useState<boolean>(true)
-
-    const getCurrentTheme = useCurrentTheme()
-
-    useEffect(() => {
-        const theme = getCurrentTheme()
-        if (theme === "light") {
-            setIsDarkTheme(false)
-        }
-    }, [getCurrentTheme])
-
-    useEffect(() => {
-        const systemLightTheme = window.matchMedia("(prefers-color-scheme: light)")
-
-        const reflectCurrentTheme = () => {
-            const theme = getCurrentTheme()
-            if (theme === "dark") {
-                setIsDarkTheme(true)
-            } else {
-                setIsDarkTheme(false)
-            }
-        }
-        systemLightTheme.addEventListener("change", reflectCurrentTheme)
-        window.addEventListener("theme", reflectCurrentTheme)
-
-        return () => {
-            systemLightTheme.removeEventListener("change", reflectCurrentTheme)
-            window.removeEventListener("theme", reflectCurrentTheme)
-        }
-    }, [getCurrentTheme])
-
     const optimizeForSlowNetwork = useNetworkInfo()
 
     useEffect(() => {
@@ -51,7 +20,7 @@ export default function Index(props: PageProps) {
 
     return (
         <div id="landing-page">
-            {isDarkTheme ? (
+            <div className="hero-wrapper dark-theme">
                 <StaticImage
                     className="hero-image"
                     src="../images/pngs/hero-image-light.png"
@@ -63,7 +32,8 @@ export default function Index(props: PageProps) {
                     width={615}
                     height={774}
                 />
-            ) : (
+            </div>
+            <div className="hero-wrapper light-theme">
                 <StaticImage
                     className="hero-image"
                     src="../images/pngs/hero-icon-dark.png"
@@ -75,7 +45,7 @@ export default function Index(props: PageProps) {
                     width={615}
                     height={774}
                 />
-            )}
+            </div>
         </div>
     )
 }

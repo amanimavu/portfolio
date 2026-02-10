@@ -35,6 +35,19 @@
     color-scheme: dark;
 }
 
+.hero-wrapper {
+    display: contents;
+}
+.light-theme {
+    display: none;
+}
+:root[data-theme="light"] .light-theme {
+    display: contents;
+}
+:root[data-theme="light"] .dark-theme {
+    display: none;
+}
+
 html {
     background-color: var(--secondary-color);
     overflow-x: hidden;
