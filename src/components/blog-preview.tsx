@@ -60,11 +60,13 @@ export function BlogEntry(props: BlogEntryProps) {
             renderMark: {
                 code: (text) => {
                     const codeString = text?.toString() ?? ""
+                    const lines = codeString.split("\n")
+                    const language = (lines[0].match(/(\w+)/g) ?? ["text"])[0]
                     return (
                         <SyntaxHighlighter
                             showLineNumbers
                             lineNumberStyle={{ opacity: 0.3 }}
-                            language="javascript"
+                            language={language}
                             style={theme == "dark" ? a11yDark : a11yLight}
                             customStyle={{ padding: "15px", fontSize: "0.4em" }}
                             PreTag="span"
@@ -72,7 +74,6 @@ export function BlogEntry(props: BlogEntryProps) {
                             codeTagProps={{
                                 style: {
                                     lineHeight: 2,
-                                    fontFamily: "monospace",
                                 },
                             }}
                         >
