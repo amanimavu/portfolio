@@ -56,11 +56,16 @@ html {
 html * {
     font-family: var(--primary-font), monospace;
     font-size: 1.05rem;
-    color: var(--primary-color);
     margin: 0;
     box-sizing: border-box;
     scrollbar-width: thin;
     scrollbar-color: var(--secondary-color) var(--primary-color);
+    color: var(--primary-color);
+}
+
+code,
+code * {
+    color: inherit;
 }
 
 html main a,

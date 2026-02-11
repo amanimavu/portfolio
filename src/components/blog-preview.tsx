@@ -39,7 +39,7 @@ type BlogEntryProps<T extends Queries.SingleBlogQuery["contentfulBlog"] = Querie
 export function BlogEntry(props: BlogEntryProps) {
     const { title, content, date } = props ?? {}
     const getTheme = useCurrentTheme()
-    const [theme, setTheme] = useState(getTheme)
+    const [theme, setTheme] = useState(() => (typeof window !== "undefined" ? getTheme : "dark"))
 
     useEffect(() => {
         // Check initial theme
