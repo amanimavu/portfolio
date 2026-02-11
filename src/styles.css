@@ -700,26 +700,9 @@ html[data-theme="light"] {
     gap: 6px;
 }
 
-p code {
-    white-space: pre;
-}
-
-p code *,
-p code {
-    font-size: 0.95em;
-    line-height: 2;
-}
-
-.circle-sketch-highlight {
-    position: relative;
-}
-
 p:has(code) {
-    background-color: var(--code-bg-color);
-    padding: 15px;
     overflow-x: auto;
     scrollbar-color: var(--accent) var(--secondary-color);
-    scrollbar-width: thin;
 }
 
 mark {

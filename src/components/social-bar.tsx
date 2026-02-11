@@ -10,7 +10,7 @@ export default function SocialBar() {
                 className="socials-item"
                 target="_blank"
                 href="https://github.com/amanimavu"
-                rel="noopener noreferrer"
+                rel="noreferrer"
                 aria-label="Visit my Github profile"
             >
                 <Github />
@@ -20,7 +20,7 @@ export default function SocialBar() {
                 className="socials-item"
                 target="_blank"
                 href="https://www.linkedin.com/in/amani-mavu/"
-                rel="noopener noreferrer"
+                rel="noreferrer"
                 aria-label="Visit my LinkedIn profile"
             >
                 <LinkedIn />
@@ -30,7 +30,7 @@ export default function SocialBar() {
                 className="socials-item"
                 target="_blank"
                 href="https://www.instagram.com/it_is_mkongo/"
-                rel="noopener noreferrer"
+                rel="noreferrer"
                 aria-label="Visit my Instagram profile"
             >
                 <Instagram />
