@@ -18,6 +18,7 @@
         "@contentful/rich-text-html-renderer": "^17.0.1",
         "@contentful/rich-text-react-renderer": "^16.0.1",
         "@svgr/webpack": "^8.1.0",
+        "@types/react-syntax-highlighter": "^15.5.13",
         "gatsby": "^5.14.1",
         "gatsby-adapter-netlify": "^1.2.0",
         "gatsby-omni-font-loader": "^2.0.2",
@@ -30,10 +31,10 @@
         "gatsby-source-contentful": "^8.15.0",
         "gatsby-source-filesystem": "^5.14.0",
         "gatsby-transformer-sharp": "^5.14.0",
-        "highlight.js": "^11.11.1",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
-        "react-helmet": "^6.1.0"
+        "react-helmet": "^6.1.0",
+        "react-syntax-highlighter": "^16.1.0"
     },
     "devDependencies": {
         "@types/node": "^20.11.19",

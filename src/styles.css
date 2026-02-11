@@ -56,11 +56,16 @@ html {
 html * {
     font-family: var(--primary-font), monospace;
     font-size: 1.05rem;
-    color: var(--primary-color);
     margin: 0;
     box-sizing: border-box;
     scrollbar-width: thin;
     scrollbar-color: var(--secondary-color) var(--primary-color);
+    color: var(--primary-color);
+}
+
+code,
+code * {
+    color: inherit;
 }
 
 html main a,
@@ -700,26 +705,9 @@ html[data-theme="light"] {
     gap: 6px;
 }
 
-p code {
-    white-space: pre;
-}
-
-p code *,
-p code {
-    font-size: 0.95em;
-    line-height: 2;
-}
-
-.circle-sketch-highlight {
-    position: relative;
-}
-
 p:has(code) {
-    background-color: var(--code-bg-color);
-    padding: 15px;
     overflow-x: auto;
     scrollbar-color: var(--accent) var(--secondary-color);
-    scrollbar-width: thin;
 }
 
 mark {

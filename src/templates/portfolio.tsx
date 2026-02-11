@@ -238,7 +238,14 @@ export const ProjectTemplate = ({ projects }: { projects: readonly Project[] }) 
                                 renderHeader={() => (
                                     <div className="collapse-header">
                                         <h4>{name}</h4>
-                                        <h4>{url ?? "#"}</h4>
+                                        <a
+                                            style={{ "--animation-order": 0 } as CSSProperties}
+                                            target="_blank"
+                                            rel="noreferrer"
+                                            href={url ?? "#"}
+                                        >
+                                            <h4>{url ?? null}</h4>
+                                        </a>
                                         <ul className="technologies">
                                             {technologies?.map((tech, index) => (
                                                 <li key={index}>
@@ -274,11 +281,14 @@ export const ProjectTemplate = ({ projects }: { projects: readonly Project[] }) 
                         </ul>
                         <Divider />
                         <article className="description" ref={descriptionRef}>
-                            <h4 style={{ "--animation-order": 0 } as CSSProperties}>
-                                <a target="_blank" rel="noopener noreferrer" href={description?.url ?? "#"}>
-                                    {description?.url ?? null}
-                                </a>
-                            </h4>
+                            <a
+                                style={{ "--animation-order": 0 } as CSSProperties}
+                                target="_blank"
+                                rel="noreferrer"
+                                href={description?.url ?? "#"}
+                            >
+                                <h4>{description?.url ?? null}</h4>
+                            </a>
                             <ul style={{ "--animation-order": 1 } as CSSProperties} className="technologies">
                                 {description?.technologies?.map((tech, index) => (
                                     <li key={index}>
