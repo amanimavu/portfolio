@@ -17,6 +17,7 @@
     "dependencies": {
         "@contentful/rich-text-html-renderer": "^17.0.1",
         "@contentful/rich-text-react-renderer": "^16.0.1",
+        "@contentful/rich-text-types": "^17.2.5",
         "@svgr/webpack": "^8.1.0",
         "@types/react-syntax-highlighter": "^15.5.13",
         "gatsby": "^5.14.1",
