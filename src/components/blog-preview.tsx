@@ -5,6 +5,7 @@ import { documentToReactComponents, Options } from "@contentful/rich-text-react-
 import SyntaxHighlighter from "react-syntax-highlighter"
 import { a11yDark, a11yLight } from "react-syntax-highlighter/dist/esm/styles/hljs"
 import { useCurrentTheme } from "utils/hooks"
+import { BLOCKS } from "@contentful/rich-text-types"
 
 type BlogPreviewProps<
     T extends
@@ -38,12 +39,14 @@ type BlogEntryProps<T extends Queries.SingleBlogQuery["contentfulBlog"] = Querie
 
 export function BlogEntry(props: BlogEntryProps) {
     const { title, content, date } = props ?? {}
+    const { references } = content ?? {}
     const getTheme = useCurrentTheme()
     const [theme, setTheme] = useState(() => (typeof window !== "undefined" ? getTheme : "dark"))
 
     useEffect(() => {
         // Check initial theme
         const root = document.documentElement
+        setTheme(getTheme())
 
         // Observe changes to data-theme attribute
         const observer = new MutationObserver(() => {
@@ -57,18 +60,22 @@ export function BlogEntry(props: BlogEntryProps) {
 
     const options: Options = useMemo(
         () => ({
-            renderMark: {
-                code: (text) => {
-                    const codeString = text?.toString() ?? ""
-                    const lines = codeString.split("\n")
-                    const language = (lines[0].match(/(\w+)/g) ?? ["text"])[0]
+            renderNode: {
+                [BLOCKS.EMBEDDED_ENTRY]: (node) => {
+                    const entry = references?.find((ref) => ref?.contentful_id === node?.data?.target.sys.id)
+                    const language = entry?.language?.toLowerCase() ?? "text"
                     return (
                         <SyntaxHighlighter
                             showLineNumbers
                             lineNumberStyle={{ opacity: 0.3 }}
                             language={language}
-                            style={theme == "dark" ? a11yDark : a11yLight}
-                            customStyle={{ padding: "15px", fontSize: "0.4em" }}
+                            style={theme === "dark" ? a11yDark : a11yLight}
+                            customStyle={{
+                                padding: "15px",
+                                fontSize: "0.4em",
+                                marginBottom: "2rem",
+                                transition: "color 0.2s ease-in, background 0.2s ease-in",
+                            }}
                             PreTag="span"
                             wrapLongLines
                             codeTagProps={{
@@ -77,7 +84,7 @@ export function BlogEntry(props: BlogEntryProps) {
                                 },
                             }}
                         >
-                            {codeString}
+                            {entry?.code?.code ?? ""}
                         </SyntaxHighlighter>
                     )
                 },
