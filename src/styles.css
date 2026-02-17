@@ -31,6 +31,7 @@
 :root[data-theme="light"] {
     color-scheme: light;
 }
+
 :root[data-theme="dark"] {
     color-scheme: dark;
 }
@@ -41,17 +42,16 @@
 .light-theme {
     display: none;
 }
-:root[data-theme="light"] .light-theme {
+:root[data-theme="light"] .hero-wrapper.light-theme {
     display: contents;
 }
-:root[data-theme="light"] .dark-theme {
+:root[data-theme="light"] .hero-wrapper.dark-theme {
     display: none;
 }
 
 html {
     background-color: var(--secondary-color);
     overflow-x: hidden;
-    transition: background-color 0.2s ease-in;
 }
 
 html * {
@@ -62,7 +62,6 @@ html * {
     scrollbar-width: thin;
     scrollbar-color: var(--secondary-color) var(--primary-color);
     color: var(--primary-color);
-    transition: color 0.2s ease-in;
 }
 
 code,
@@ -509,9 +508,10 @@ button:disabled {
 .blog-preview {
     border: solid var(--primary-color) 2px;
     animation-name: slide-in-up;
-    animation-duration: 0.6s;
+    animation-duration: 0.3s;
     animation-delay: calc(var(--animation-order) * 150ms);
     animation-fill-mode: both;
+    animation-timing-function: ease-out;
 }
 
 @keyframes slide-in-up {
@@ -1069,16 +1069,6 @@ mark {
 
     .sidebar {
         display: none;
-    }
-}
-
-@keyframes aku-portal {
-    0% {
-        scale: 1;
-    }
-
-    100% {
-        scale: 25;
     }
 }
 

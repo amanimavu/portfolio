@@ -30,31 +30,6 @@ export const useScreens = (): [xs: boolean, md: boolean] => {
     return [xs, md]
 }
 
-export const usePreferredTheme = (onDark: () => void, onLight: () => void) => {
-    useEffect(() => {
-        const html = document.querySelector("html")
-        const theme = window.localStorage.getItem("theme")
-
-        const systemLightTheme = window.matchMedia("(prefers-color-scheme: light)")
-
-        function changeTheme(e: MediaQueryListEvent) {
-            if (theme === null && html) {
-                if (e.matches) {
-                    onLight()
-                    html.setAttribute("data-theme", "light")
-                } else {
-                    onDark()
-                    html.setAttribute("data-theme", "dark")
-                }
-            }
-        }
-
-        systemLightTheme.addEventListener("change", changeTheme)
-
-        return () => systemLightTheme.removeEventListener("change", changeTheme)
-    }, [])
-}
-
 export const useSiteMetadata = () => {
     const data = useStaticQuery<Queries.GetStaticMetaDataQuery>(graphql`
         query GetStaticMetaData {

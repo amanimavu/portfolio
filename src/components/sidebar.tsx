@@ -6,32 +6,29 @@ import { ReactComponent as HomeIcon } from "images/svgs/home-icon.svg"
 import { ReactComponent as Moon } from "images/svgs/moon.svg"
 import { ReactComponent as Sun } from "images/svgs/sun.svg"
 import { Link, PageProps } from "gatsby"
-import { useCurrentTheme, usePreferredTheme } from "utils/hooks"
+import { useCurrentTheme } from "utils/hooks"
 
 export function Sidebar({ path }: { path: PageProps["location"]["pathname"] }) {
-    const [isDarkTheme, setIsDarkTheme] = useState<boolean>(true)
-
     const getCurrentTheme = useCurrentTheme()
+    const [isDarkTheme, setIsDarkTheme] = useState(true)
 
     useEffect(() => {
+        const root = document.documentElement
         const currentTheme = getCurrentTheme()
-        const html = document.querySelector(":root")
-        if (currentTheme === "light") {
-            setIsDarkTheme(false)
-            if (html) {
-                html.setAttribute("data-theme", "light")
-            }
-        } else {
-            if (html) {
-                html.setAttribute("data-theme", "dark")
-            }
-        }
-    }, [])
+        root.setAttribute("data-theme", currentTheme)
+        setIsDarkTheme(currentTheme === "dark")
+    }, [getCurrentTheme])
 
-    usePreferredTheme(
-        () => setIsDarkTheme(true),
-        () => setIsDarkTheme(false)
-    )
+    useEffect(() => {
+        const root = document.documentElement
+        const observer = new MutationObserver(() => {
+            const theme = root.getAttribute("data-theme")
+            window.localStorage.setItem("theme", theme ?? "dark")
+        })
+        observer.observe(root, { attributes: true, attributeFilter: ["data-theme"] })
+
+        return () => observer.disconnect()
+    }, [])
 
     return (
         <aside className="sidebar">
@@ -43,20 +40,14 @@ export function Sidebar({ path }: { path: PageProps["location"]["pathname"] }) {
                     aria-label={isDarkTheme ? "Switch to light theme" : "Switch to dark theme"}
                     onClick={() => {
                         const html = document.querySelector(":root")
-                        if (isDarkTheme) {
-                            window.localStorage.setItem("theme", "light")
-                            if (html) {
-                                html.setAttribute("style", "color-scheme: light")
+                        if (html) {
+                            if (isDarkTheme) {
                                 html.setAttribute("data-theme", "light")
-                            }
-                            setIsDarkTheme(false)
-                        } else {
-                            window.localStorage.setItem("theme", "dark")
-                            if (html) {
-                                html.setAttribute("style", "color-scheme: dark")
+                                setIsDarkTheme(false)
+                            } else {
                                 html.setAttribute("data-theme", "dark")
+                                setIsDarkTheme(true)
                             }
-                            setIsDarkTheme(true)
                         }
                         window.dispatchEvent(new Event("theme"))
                     }}
