@@ -1,9 +1,7 @@
 import { StaticImage } from "gatsby-plugin-image"
 import React, { ReactNode } from "react"
-import { useScreens } from "src/utils/hooks"
 
 export const AboutTemplate = ({ children }: { children: ReactNode }) => {
-    const [xs] = useScreens()
     return (
         <div id="about-me">
             <article>{children}</article>
