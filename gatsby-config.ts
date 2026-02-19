@@ -37,7 +37,6 @@ const config: GatsbyConfig = {
                     "style-src": "'self' 'unsafe-inline' https://fonts.googleapis.com",
                     "font-src": "'self' data: https://fonts.gstatic.com",
                     "img-src": "'self' data: https://images.ctfassets.net",
-                    "frame-ancestors": "'self'",
                 },
             },
         },
@@ -128,7 +127,10 @@ const config: GatsbyConfig = {
     headers: [
         {
             source: "/*",
-            headers: [{ key: "Strict-Transport-Security", value: "max-age=3600; includeSubDomains" }],
+            headers: [
+                { key: "Strict-Transport-Security", value: "max-age=3600; includeSubDomains" },
+                { key: "X-Frame-Options", value: "SAMEORIGIN" },
+            ],
         },
     ],
 }
