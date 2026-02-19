@@ -19,7 +19,7 @@ export const onRenderBody: GatsbySSR["onRenderBody"] = ({ setHeadComponents }, o
                 __html: `
                 (function() {
                     try {
-                        const theme = localStorage.getItem('theme');
+                        let theme = localStorage.getItem('theme');
                         const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
                         if (!theme && supportDarkMode) theme = 'dark';
                         
