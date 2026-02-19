@@ -15,13 +15,11 @@ export const SEO = ({ title, description, pathname, children }: Props) => {
 
     return (
         <>
-            <html lang="en" />
-            <meta charSet="UTF-8" />
             <title>{seo.title}</title>
-            <meta name="image" content={seo.image} />
-            <link id="icon" rel="icon" href={favicon} />
-            <meta name="description" content={seo.description ?? undefined} />
-            <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1" />
+            <meta name="image" content={seo.image} id="meta-image" />
+            <meta name="description" content={seo.description ?? undefined} id="meta-description" />
+            <link id="icon" type="image/x-icon" rel="icon" href={favicon} key="site-favicon" />
+            <html lang="en" />
             {children}
         </>
     )
