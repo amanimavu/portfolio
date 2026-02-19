@@ -14,7 +14,7 @@ export const wrapPageElement: GatsbySSR["wrapPageElement"] = ({ element, props }
 export const onRenderBody: GatsbySSR["onRenderBody"] = ({ setHeadComponents }, options) => {
     setHeadComponents([
         <script
-            key="tailwind-dark-mode"
+            key="theme-setting"
             dangerouslySetInnerHTML={{
                 __html: `
                 (function() {
@@ -22,7 +22,7 @@ export const onRenderBody: GatsbySSR["onRenderBody"] = ({ setHeadComponents }, o
                         let theme = localStorage.getItem('theme');
                         const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
                         if (!theme && supportDarkMode) theme = 'dark';
-                        
+
                         if (theme === 'dark') {
                             document.documentElement.setAttribute("data-theme", "dark");
                         } else {
@@ -30,16 +30,23 @@ export const onRenderBody: GatsbySSR["onRenderBody"] = ({ setHeadComponents }, o
                         }
                     } catch (e) {}
                 })();
-                (function() {
-                    try {
-                        const hasGoodNetwork = ["4g", "3g"].includes(navigator.connection?.effectiveType ?? "2g");
-                        const saveData = navigator.connection?.saveData ?? false
+            `,
+            }}
+        />,
+        <script
+            key="network-optimization"
+            dangerouslySetInnerHTML={{
+                __html: `
+            (function() {
+                try {
+                    const hasGoodNetwork = ["4g", "3g"].includes(navigator.connection?.effectiveType ?? "2g");
+                    const saveData = navigator.connection?.saveData ?? false
 
-                        if(!hasGoodNetwork || saveData){
-                            document.documentElement.style.setProperty("--mask-url", "none")
-                        }
-                    } catch (e) {}
-                })();
+                    if(!hasGoodNetwork || saveData){
+                        document.documentElement.style.setProperty("--mask-url", "none")
+                    }
+                } catch (e) {}
+            })();
             `,
             }}
         />,
