@@ -52,6 +52,10 @@ export default function Index(props: PageProps) {
 
 export const Head: HeadFC = ({ location }) => (
     <SEO pathname={location.pathname}>
-        <meta name="google-site-verification" content="ZI2DXLtpwpSRYaZGKnP41kfvGemf3gYwJluvF2VkJ3M" />
+        <meta
+            id="site-verification"
+            name="google-site-verification"
+            content="ZI2DXLtpwpSRYaZGKnP41kfvGemf3gYwJluvF2VkJ3M"
+        />
     </SEO>
 )

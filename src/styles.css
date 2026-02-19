@@ -28,6 +28,22 @@
     color-scheme: dark;
 }
 
+:root[data-theme="light"] .theme-toggle-icon-dark {
+    display: none;
+}
+
+:root[data-theme="light"] .theme-toggle-icon-light {
+    display: initial;
+}
+
+:root[data-theme="dark"] .theme-toggle-icon-dark {
+    display: initial;
+}
+
+:root[data-theme="dark"] .theme-toggle-icon-light {
+    display: none;
+}
+
 :root[data-theme="light"] {
     color-scheme: light;
 }

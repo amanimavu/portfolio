@@ -6,12 +6,15 @@ import { ReactComponent as HomeIcon } from "images/svgs/home-icon.svg"
 import { ReactComponent as Moon } from "images/svgs/moon.svg"
 import { ReactComponent as Sun } from "images/svgs/sun.svg"
 import { Link, PageProps } from "gatsby"
+import { useCurrentTheme } from "utils/hooks"
 
 export function Sidebar({ path }: { path: PageProps["location"]["pathname"] }) {
     const [isDarkTheme, setIsDarkTheme] = useState(true)
+    const getCurrentTheme = useCurrentTheme()
 
     useEffect(() => {
         const root = document.documentElement
+        setIsDarkTheme(getCurrentTheme() === "dark")
         const observer = new MutationObserver(() => {
             const theme = root.getAttribute("data-theme")
             window.localStorage.setItem("theme", theme ?? "dark")
@@ -43,7 +46,8 @@ export function Sidebar({ path }: { path: PageProps["location"]["pathname"] }) {
                         window.dispatchEvent(new Event("theme"))
                     }}
                 >
-                    {isDarkTheme ? <Moon /> : <Sun />}
+                    <Moon className="theme-toggle-icon-dark" />
+                    <Sun className="theme-toggle-icon-light" />
                 </button>
             </div>
             <div className="socials-container">
