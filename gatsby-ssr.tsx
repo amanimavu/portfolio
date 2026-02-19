@@ -33,7 +33,7 @@ export const onRenderBody: GatsbySSR["onRenderBody"] = ({ setHeadComponents }, o
                 (function() {
                     try {
                         const hasGoodNetwork = ["4g", "3g"].includes(navigator.connection?.effectiveType ?? "2g");
-                        const saveDate = navigator.connection?.saveData ?? false
+                        const saveData = navigator.connection?.saveData ?? false
 
                         if(!hasGoodNetwork || saveData){
                             document.documentElement.style.setProperty("--mask-url", "none")
