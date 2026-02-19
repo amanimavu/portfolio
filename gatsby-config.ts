@@ -14,7 +14,7 @@ const config: GatsbyConfig = {
         title: `Amani Mavu | Web Developer & Tech Blogger`,
         description: `Portfolio of Amani Mavu — Frontend Web Developer skilled in JavaScript, TypeScript, and React. Showcasing projects, problem-solving, and user-focused apps.`,
         image: `/amani_portfolio_site.png`,
-        siteUrl: `https://amani-mavu.is-a.dev`,
+        siteUrl: `https://amani-mavu.com`,
     },
     // More easily incorporate content into your pages through automatic TypeScript type generation and better GraphQL IntelliSense.
     // If you use VSCode you can also use the GraphQL plugin
@@ -59,7 +59,7 @@ const config: GatsbyConfig = {
                         }
                     }
                 `,
-                resolveSiteUrl: () => "https://amani-mavu.is-a.dev",
+                resolveSiteUrl: () => "https://amani-mavu.com",
                 resolvePages: ({
                     allSitePage: { nodes: allPages },
                     allContentfulBlog: { nodes: allPosts },
@@ -124,6 +124,15 @@ const config: GatsbyConfig = {
     flags: {
         DEV_SSR: true,
     },
+    headers: [
+        {
+            source: "/*",
+            headers: [
+                { key: "Strict-Transport-Security", value: "max-age=3600; includeSubDomains" },
+                { key: "X-Frame-Options", value: "SAMEORIGIN" },
+            ],
+        },
+    ],
 }
 
 export default config

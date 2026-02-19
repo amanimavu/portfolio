@@ -6,18 +6,9 @@ import { ReactComponent as HomeIcon } from "images/svgs/home-icon.svg"
 import { ReactComponent as Moon } from "images/svgs/moon.svg"
 import { ReactComponent as Sun } from "images/svgs/sun.svg"
 import { Link, PageProps } from "gatsby"
-import { useCurrentTheme } from "utils/hooks"
 
 export function Sidebar({ path }: { path: PageProps["location"]["pathname"] }) {
-    const getCurrentTheme = useCurrentTheme()
     const [isDarkTheme, setIsDarkTheme] = useState(true)
-
-    useEffect(() => {
-        const root = document.documentElement
-        const currentTheme = getCurrentTheme()
-        root.setAttribute("data-theme", currentTheme)
-        setIsDarkTheme(currentTheme === "dark")
-    }, [getCurrentTheme])
 
     useEffect(() => {
         const root = document.documentElement
