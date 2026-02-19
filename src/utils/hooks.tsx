@@ -68,28 +68,14 @@ export const useCurrentTheme = () => {
 }
 
 export const useNetworkInfo = () => {
-    const [optimize, setOptimize] = useState(() => {
-        if (typeof window === "undefined") return true
-
-        const navigator = window.navigator as any
-        const networkInfo = navigator.connection
-        const dataSaverIsOn = networkInfo?.saveData ?? true
-        const downLinkSpeedIsGood = (networkInfo?.downlink ?? 0) > 5
-        const latencyIsLow = (networkInfo?.rtt ?? 200) < 200
-
-        return !(!dataSaverIsOn && downLinkSpeedIsGood && latencyIsLow)
-    })
+    const [optimize, setOptimize] = useState(true)
 
     useEffect(() => {
         const navigator = window.navigator as any
         const networkInfo = navigator.connection
 
         function modifyOptimization() {
-            const dataSaverIsOn = networkInfo?.saveData ?? true
-            const downLinkSpeedIsGood = (networkInfo?.downlink ?? 0) > 5
-            const latencyIsLow = (networkInfo?.rtt ?? 200) < 200
-
-            if (!dataSaverIsOn && downLinkSpeedIsGood && latencyIsLow) {
+            if (["4g", "3g"].includes(networkInfo?.effectiveType ?? "2g") && !(networkInfo?.saveData ?? false)) {
                 setOptimize(false)
             } else {
                 setOptimize(true)
