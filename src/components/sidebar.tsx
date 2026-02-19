@@ -43,7 +43,8 @@ export function Sidebar({ path }: { path: PageProps["location"]["pathname"] }) {
                         window.dispatchEvent(new Event("theme"))
                     }}
                 >
-                    {isDarkTheme ? <Moon /> : <Sun />}
+                    <Moon className="theme-toggle-icon-dark" />
+                    <Sun className="theme-toggle-icon-light" />
                 </button>
             </div>
             <div className="socials-container">
