@@ -73,7 +73,7 @@ export const useNetworkInfo = () => {
     useEffect(() => {
         const navigator = window.navigator as any
         const networkInfo = navigator.connection
-        const hasGoodNetwork = ["4g", "3g"].includes(networkInfo?.effectiveType ?? "2g")
+        const hasGoodNetwork = ["4g", "5g"].includes(networkInfo?.effectiveType ?? "2g")
         const saveData = networkInfo?.saveData ?? false
         setOptimize(!hasGoodNetwork || saveData)
 

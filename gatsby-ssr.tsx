@@ -39,7 +39,7 @@ export const onRenderBody: GatsbySSR["onRenderBody"] = ({ setHeadComponents }, o
                 __html: `
             (function() {
                 try {
-                    const hasGoodNetwork = ["4g", "3g"].includes(navigator.connection?.effectiveType ?? "2g");
+                    const hasGoodNetwork = ["4g", "5g"].includes(navigator.connection?.effectiveType ?? "2g");
                     const saveData = navigator.connection?.saveData ?? false
 
                     if(!hasGoodNetwork || saveData){
