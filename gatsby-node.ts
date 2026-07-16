@@ -60,3 +60,12 @@ export const createPages: GatsbyNode["createPages"] = async ({ actions, reporter
         })
     }
 }
+
+export const onCreateWebpackConfig: GatsbyNode["onCreateWebpackConfig"] = ({ actions }) => {
+    actions.setWebpackConfig({
+        resolve: {
+            // This tells Webpack where to look when resolving modules
+            modules: [path.resolve(__dirname, "src"), "node_modules"],
+        },
+    })
+}
