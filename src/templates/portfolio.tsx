@@ -2,7 +2,7 @@ import { DisplayChip } from "components/chips"
 import { Collapse } from "components/collapse"
 import { Divider } from "components/divider"
 import React, { CSSProperties, useEffect, useMemo, useRef, useState } from "react"
-import { useAutoscrollHint, useScreens } from "src/utils/hooks"
+import { useAutoscrollHint, useScreens } from "utils/hooks"
 import { formatDate } from "utils/date"
 
 const createObserver = (target: Element) => {
