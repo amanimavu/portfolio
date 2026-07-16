@@ -1,11 +1,15 @@
 import React from "react"
-import { ReactComponent as LinkedIn } from "images/svgs/linkedin-icon.svg"
-import { ReactComponent as Github } from "images/svgs/github-icon.svg"
-import { ReactComponent as Instagram } from "images/svgs/instagram-icon.svg"
+import { ReactComponent as FileAttach } from "images/svgs/file-text.svg"
+import { ReactComponent as Github } from "images/svgs/socials/github-icon.svg"
+import { ReactComponent as LinkedIn } from "images/svgs/socials/linkedin-icon.svg"
+import { ReactComponent as Instagram } from "images/svgs/socials/instagram-icon.svg"
 
 export default function SocialBar() {
     return (
         <div id="social-bar">
+            <a className="socials-item" href="/cv.pdf" download="amani-mavu-cv.pdf">
+                <FileAttach />
+            </a>
             <a
                 className="socials-item"
                 target="_blank"

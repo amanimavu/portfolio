@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from "react"
-import { ReactComponent as LinkedIn } from "images/svgs/linkedin-icon.svg"
-import { ReactComponent as Github } from "images/svgs/github-icon.svg"
-import { ReactComponent as Instagram } from "images/svgs/instagram-icon.svg"
-import { ReactComponent as HomeIcon } from "images/svgs/home-icon.svg"
-import { ReactComponent as Moon } from "images/svgs/moon.svg"
-import { ReactComponent as Sun } from "images/svgs/sun.svg"
 import { Link, PageProps } from "gatsby"
 import { useCurrentTheme } from "utils/hooks"
+import React, { useEffect, useState } from "react"
+import { ReactComponent as Sun } from "images/svgs/sun.svg"
+import { ReactComponent as Moon } from "images/svgs/moon.svg"
+import { ReactComponent as HomeIcon } from "images/svgs/home-icon.svg"
+import { ReactComponent as FileAttach } from "images/svgs/file-text.svg"
+import { ReactComponent as Github } from "images/svgs/socials/github-icon.svg"
+import { ReactComponent as LinkedIn } from "images/svgs/socials/linkedin-icon.svg"
+import { ReactComponent as Instagram } from "images/svgs/socials/instagram-icon.svg"
 
 export function Sidebar({ path }: { path: PageProps["location"]["pathname"] }) {
     const [isDarkTheme, setIsDarkTheme] = useState(true)
@@ -51,6 +52,9 @@ export function Sidebar({ path }: { path: PageProps["location"]["pathname"] }) {
                 </button>
             </div>
             <div className="socials-container">
+                <a className="socials-item" href="/cv.pdf" download="amani-mavu-cv.pdf">
+                    <FileAttach />
+                </a>
                 <a
                     className="socials-item"
                     target="_blank"
@@ -60,7 +64,6 @@ export function Sidebar({ path }: { path: PageProps["location"]["pathname"] }) {
                 >
                     <Github />
                 </a>
-
                 <a
                     className="socials-item"
                     target="_blank"
@@ -70,7 +73,6 @@ export function Sidebar({ path }: { path: PageProps["location"]["pathname"] }) {
                 >
                     <LinkedIn />
                 </a>
-
                 <a
                     className="socials-item"
                     target="_blank"
