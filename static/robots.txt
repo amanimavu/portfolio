@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://amani-mavu.com/sitemap-index.xml
