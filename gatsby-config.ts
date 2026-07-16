@@ -21,7 +21,16 @@ const config: GatsbyConfig = {
     // Learn more at: https://gatsby.dev/graphql-typegen
     graphqlTypegen: true,
     plugins: [
-        // 'gatsby-plugin-google-gtag',
+        {
+            resolve: "gatsby-plugin-google-gtag",
+            options: {
+                trackingIds: ["G-6ELC60RFFG"],
+                pluginConfig: {
+                    head: true,
+                    respectDNT: true,
+                },
+            },
+        },
         "gatsby-plugin-image",
         "gatsby-plugin-sharp",
         "gatsby-transformer-sharp",
@@ -33,10 +42,12 @@ const config: GatsbyConfig = {
                 mergeScriptHashes: false,
                 mergeStyleHashes: false,
                 directives: {
-                    "script-src": "'self' 'unsafe-inline'",
+                    "script-src":
+                        "'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com",
                     "style-src": "'self' 'unsafe-inline' https://fonts.googleapis.com",
                     "font-src": "'self' data: https://fonts.gstatic.com",
-                    "img-src": "'self' data: https://images.ctfassets.net",
+                    "connect-src": "'self' https://www.google-analytics.com https://region1.google-analytics.com",
+                    "img-src": "'self' data: https://images.ctfassets.net https://www.google-analytics.com",
                 },
             },
         },
@@ -123,7 +134,7 @@ const config: GatsbyConfig = {
     ],
     flags: {
         DEV_SSR: true,
-        FAST_DEV: true
+        FAST_DEV: true,
     },
     headers: [
         {
