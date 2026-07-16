@@ -1,44 +1,26 @@
-import React, { CSSProperties, useEffect, useState } from "react"
+import React, { useEffect } from "react"
 import type { HeadFC, PageProps } from "gatsby"
 import { StaticImage } from "gatsby-plugin-image"
 import { SEO } from "components/seo"
-import { useCurrentTheme, useScreens } from "utils/hooks"
+import { useNetworkInfo } from "utils/hooks"
+
+import maskGif from "../images/gifs/transparent-ink.gif"
 
 export default function Index(props: PageProps) {
-    const [isDarkTheme, setIsDarkTheme] = useState<boolean>(true)
-
-    const getCurrentTheme = useCurrentTheme()
+    const optimizeForSlowNetwork = useNetworkInfo()
 
     useEffect(() => {
-        const theme = getCurrentTheme()
-        if (theme === "light") {
-            setIsDarkTheme(false)
+        const root = document.documentElement
+        if (optimizeForSlowNetwork) {
+            root.style.setProperty("--mask-url", "none")
+        } else {
+            root.style.setProperty("--mask-url", `url(${maskGif})`)
         }
-    }, [getCurrentTheme])
-
-    useEffect(() => {
-        const systemLightTheme = window.matchMedia("(prefers-color-scheme: light)")
-
-        const reflectCurrentTheme = () => {
-            const theme = getCurrentTheme()
-            if (theme === "dark") {
-                setIsDarkTheme(true)
-            } else {
-                setIsDarkTheme(false)
-            }
-        }
-        systemLightTheme.addEventListener("change", reflectCurrentTheme)
-        window.addEventListener("theme", reflectCurrentTheme)
-
-        return () => {
-            systemLightTheme.removeEventListener("change", reflectCurrentTheme)
-            window.removeEventListener("theme", reflectCurrentTheme)
-        }
-    }, [getCurrentTheme])
+    }, [optimizeForSlowNetwork])
 
     return (
         <div id="landing-page">
-            {isDarkTheme ? (
+            <div className="hero-wrapper dark-theme">
                 <StaticImage
                     className="hero-image"
                     src="../images/pngs/hero-image-light.png"
@@ -50,7 +32,8 @@ export default function Index(props: PageProps) {
                     width={615}
                     height={774}
                 />
-            ) : (
+            </div>
+            <div className="hero-wrapper light-theme">
                 <StaticImage
                     className="hero-image"
                     src="../images/pngs/hero-icon-dark.png"
@@ -62,13 +45,17 @@ export default function Index(props: PageProps) {
                     width={615}
                     height={774}
                 />
-            )}
+            </div>
         </div>
     )
 }
 
-export const Head: HeadFC = () => (
-    <SEO>
-        <meta name="google-site-verification" content="ZI2DXLtpwpSRYaZGKnP41kfvGemf3gYwJluvF2VkJ3M" />
+export const Head: HeadFC = ({ location }) => (
+    <SEO pathname={location.pathname}>
+        <meta
+            id="site-verification"
+            name="google-site-verification"
+            content="ZI2DXLtpwpSRYaZGKnP41kfvGemf3gYwJluvF2VkJ3M"
+        />
     </SEO>
 )

@@ -30,33 +30,6 @@ export const useScreens = (): [xs: boolean, md: boolean] => {
     return [xs, md]
 }
 
-export const usePreferredTheme = (onDark: () => void, onLight: () => void) => {
-    useEffect(() => {
-        const html = document.querySelector("html")
-        const theme = window.localStorage.getItem("theme")
-
-        const systemLightTheme = window.matchMedia("(prefers-color-scheme: light)")
-
-        function changeTheme(e: MediaQueryListEvent) {
-            if (theme === null && html) {
-                if (e.matches) {
-                    onLight()
-                    html.setAttribute("style", "color-scheme: light")
-                    html.setAttribute("data-theme", "light")
-                } else {
-                    onDark()
-                    html.setAttribute("style", "color-scheme: dark")
-                    html.setAttribute("data-theme", "dark")
-                }
-            }
-        }
-
-        systemLightTheme.addEventListener("change", changeTheme)
-
-        return () => systemLightTheme.removeEventListener("change", changeTheme)
-    }, [])
-}
-
 export const useSiteMetadata = () => {
     const data = useStaticQuery<Queries.GetStaticMetaDataQuery>(graphql`
         query GetStaticMetaData {
@@ -92,4 +65,51 @@ export const useCurrentTheme = () => {
 
         return "dark"
     }, [])
+}
+
+export const useNetworkInfo = () => {
+    const [optimize, setOptimize] = useState(true)
+
+    useEffect(() => {
+        const navigator = window.navigator as any
+        const networkInfo = navigator.connection
+        const hasGoodNetwork = ["4g", "5g"].includes(networkInfo?.effectiveType ?? "2g")
+        const saveData = networkInfo?.saveData ?? false
+        setOptimize(!hasGoodNetwork || saveData)
+
+        function modifyOptimization() {
+            setOptimize(!hasGoodNetwork || saveData)
+        }
+        networkInfo?.addEventListener("change", modifyOptimization)
+
+        return () => networkInfo?.removeEventListener("change", modifyOptimization)
+    }, [])
+
+    return optimize
+}
+
+export const useAutoscrollHint = (ref: React.RefObject<HTMLElement>, dependency: unknown) => {
+    useEffect(() => {
+        const element = ref.current
+        if (!element) return
+
+        element.scrollTop = 0
+
+        let innerTimer: ReturnType<typeof setTimeout>
+
+        const timer = setTimeout(() => {
+            if (element.scrollHeight > element.clientHeight) {
+                const scrollableHeight = element.scrollHeight - element.clientHeight
+                element.scrollBy({ top: scrollableHeight, behavior: "smooth" })
+                innerTimer = setTimeout(() => {
+                    element.scrollBy({ top: scrollableHeight * -1, behavior: "smooth" })
+                }, 1200)
+            }
+        }, 1000)
+
+        return () => {
+            clearTimeout(timer)
+            clearTimeout(innerTimer)
+        }
+    }, [dependency])
 }

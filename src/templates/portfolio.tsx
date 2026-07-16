@@ -1,8 +1,9 @@
 import { DisplayChip } from "components/chips"
 import { Collapse } from "components/collapse"
 import { Divider } from "components/divider"
-import React, { CSSProperties, useEffect, useMemo, useState } from "react"
-import { useScreens } from "src/utils/hooks"
+import React, { CSSProperties, useEffect, useMemo, useRef, useState } from "react"
+import { useAutoscrollHint, useScreens } from "utils/hooks"
+import { formatDate } from "utils/date"
 
 const createObserver = (target: Element) => {
     const options: IntersectionObserverInit = {
@@ -30,6 +31,9 @@ export const ExperienceTemplate = ({ experience }: { experience: readonly Experi
     const [xs] = useScreens()
     const [description, setDescription] = useState<Omit<Experience, "id"> | null>(null)
     const [activeKey, setActiveKey] = useState(experience[0]["id"])
+    const descriptionRef = useRef<HTMLElement>(null)
+
+    useAutoscrollHint(descriptionRef, description)
 
     useEffect(() => {
         const filters = Array.from(document.querySelectorAll("#experience ul.labels li"))
@@ -132,11 +136,15 @@ export const ExperienceTemplate = ({ experience }: { experience: readonly Experi
                             ))}
                         </ul>
                         <Divider />
-                        <article className="description">
+                        <article className="description" ref={descriptionRef}>
                             <h4 style={{ "--animation-order": 0 } as React.CSSProperties}>
-                                <span>{description?.startDate ?? null}</span>
+                                <span>{formatDate(description?.startDate ?? null, false)}</span>
                                 <span> - </span>
-                                <span>{description?.currentJob ? "to date" : (description?.endDate ?? null)}</span>
+                                <span>
+                                    {description?.currentJob
+                                        ? "to date"
+                                        : formatDate(description?.endDate ?? null, false)}
+                                </span>
                             </h4>
                             <h4 style={{ "--animation-order": 1 } as React.CSSProperties}>
                                 {description?.title ?? null}
@@ -158,6 +166,9 @@ export const ProjectTemplate = ({ projects }: { projects: readonly Project[] }) 
     const [description, setDescription] = useState<Omit<Project, "id"> | null>(null)
     const [activeKey, setActiveKey] = useState(projects[0]["id"])
     const [xs] = useScreens()
+    const descriptionRef = useRef<HTMLElement>(null)
+
+    useAutoscrollHint(descriptionRef, description)
 
     useEffect(() => {
         const filters = Array.from(document.querySelectorAll("#projects ul.labels li"))
@@ -227,7 +238,14 @@ export const ProjectTemplate = ({ projects }: { projects: readonly Project[] }) 
                                 renderHeader={() => (
                                     <div className="collapse-header">
                                         <h4>{name}</h4>
-                                        <h4>{url ?? "#"}</h4>
+                                        <a
+                                            style={{ "--animation-order": 0 } as CSSProperties}
+                                            target="_blank"
+                                            rel="noreferrer"
+                                            href={url ?? "#"}
+                                        >
+                                            <h4>{url ?? null}</h4>
+                                        </a>
                                         <ul className="technologies">
                                             {technologies?.map((tech, index) => (
                                                 <li key={index}>
@@ -262,12 +280,15 @@ export const ProjectTemplate = ({ projects }: { projects: readonly Project[] }) 
                             ))}
                         </ul>
                         <Divider />
-                        <article className="description">
-                            <h4 style={{ "--animation-order": 0 } as CSSProperties}>
-                                <a target="_blank" rel="noopener noreferrer" href={description?.url ?? "#"}>
-                                    {description?.url ?? null}
-                                </a>
-                            </h4>
+                        <article className="description" ref={descriptionRef}>
+                            <a
+                                style={{ "--animation-order": 0 } as CSSProperties}
+                                target="_blank"
+                                rel="noreferrer"
+                                href={description?.url ?? "#"}
+                            >
+                                <h4>{description?.url ?? null}</h4>
+                            </a>
                             <ul style={{ "--animation-order": 1 } as CSSProperties} className="technologies">
                                 {description?.technologies?.map((tech, index) => (
                                     <li key={index}>

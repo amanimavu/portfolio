@@ -33,6 +33,14 @@ export const query = graphql`
             id
             content {
                 raw
+                references {
+                    contentful_id
+                    language
+                    code {
+                        code
+                    }
+                    description
+                }
             }
             title
             blogDate

@@ -1,95 +1,83 @@
-import React, { useEffect, useState } from "react"
-import { ReactComponent as LinkedIn } from "images/svgs/linkedin-icon.svg"
-import { ReactComponent as Github } from "images/svgs/github-icon.svg"
-import { ReactComponent as Instagram } from "images/svgs/instagram-icon.svg"
-import { ReactComponent as HomeIcon } from "images/svgs/home-icon.svg"
-import { ReactComponent as Moon } from "images/svgs/moon.svg"
-import { ReactComponent as Sun } from "images/svgs/sun.svg"
 import { Link, PageProps } from "gatsby"
-import { useCurrentTheme, usePreferredTheme } from "utils/hooks"
+import { useCurrentTheme } from "utils/hooks"
+import React, { useEffect, useState } from "react"
+import { ReactComponent as Sun } from "images/svgs/sun.svg"
+import { ReactComponent as Moon } from "images/svgs/moon.svg"
+import { ReactComponent as HomeIcon } from "images/svgs/home-icon.svg"
+import { ReactComponent as FileAttach } from "images/svgs/file-text.svg"
+import { ReactComponent as Github } from "images/svgs/socials/github-icon.svg"
+import { ReactComponent as LinkedIn } from "images/svgs/socials/linkedin-icon.svg"
+import { ReactComponent as Instagram } from "images/svgs/socials/instagram-icon.svg"
 
 export function Sidebar({ path }: { path: PageProps["location"]["pathname"] }) {
-    const [isDarkTheme, setIsDarkTheme] = useState<boolean>(true)
-
+    const [isDarkTheme, setIsDarkTheme] = useState(true)
     const getCurrentTheme = useCurrentTheme()
 
     useEffect(() => {
-        const currentTheme = getCurrentTheme()
-        const html = document.querySelector(":root")
-        if (currentTheme === "light") {
-            setIsDarkTheme(false)
-            if (html) {
-                html.setAttribute("style", "color-scheme: light")
-                html.setAttribute("data-theme", "light")
-            }
-        } else {
-            if (html) {
-                html.setAttribute("style", "color-scheme: dark")
-                html.setAttribute("data-theme", "dark")
-            }
-        }
-    }, [])
+        const root = document.documentElement
+        setIsDarkTheme(getCurrentTheme() === "dark")
+        const observer = new MutationObserver(() => {
+            const theme = root.getAttribute("data-theme")
+            window.localStorage.setItem("theme", theme ?? "dark")
+        })
+        observer.observe(root, { attributes: true, attributeFilter: ["data-theme"] })
 
-    usePreferredTheme(
-        () => setIsDarkTheme(true),
-        () => setIsDarkTheme(false)
-    )
+        return () => observer.disconnect()
+    }, [])
 
     return (
         <aside className="sidebar">
             <div>
-                <Link to="/" aria-label="Go to homepage">{path !== "/" ? <HomeIcon /> : null}</Link>
+                <Link to="/" aria-label="Go to homepage">
+                    {path !== "/" ? <HomeIcon /> : null}
+                </Link>
                 <button
                     aria-label={isDarkTheme ? "Switch to light theme" : "Switch to dark theme"}
                     onClick={() => {
                         const html = document.querySelector(":root")
-                        if (isDarkTheme) {
-                            window.localStorage.setItem("theme", "light")
-                            if (html) {
-                                html.setAttribute("style", "color-scheme: light")
+                        if (html) {
+                            if (isDarkTheme) {
                                 html.setAttribute("data-theme", "light")
-                            }
-                            setIsDarkTheme(false)
-                        } else {
-                            window.localStorage.setItem("theme", "dark")
-                            if (html) {
-                                html.setAttribute("style", "color-scheme: dark")
+                                setIsDarkTheme(false)
+                            } else {
                                 html.setAttribute("data-theme", "dark")
+                                setIsDarkTheme(true)
                             }
-                            setIsDarkTheme(true)
                         }
                         window.dispatchEvent(new Event("theme"))
                     }}
                 >
-                    {isDarkTheme ? <Moon /> : <Sun />}
+                    <Moon className="theme-toggle-icon-dark" />
+                    <Sun className="theme-toggle-icon-light" />
                 </button>
             </div>
             <div className="socials-container">
+                <a className="socials-item" href="/cv.pdf" download="amani-mavu-cv.pdf">
+                    <FileAttach />
+                </a>
                 <a
                     className="socials-item"
                     target="_blank"
                     href="https://github.com/amanimavu"
-                    rel="noopener noreferrer"
+                    rel="noreferrer"
                     aria-label="Visit my Github profile"
                 >
                     <Github />
                 </a>
-
                 <a
                     className="socials-item"
                     target="_blank"
                     href="https://www.linkedin.com/in/amani-mavu/"
-                    rel="noopener noreferrer"
+                    rel="noreferrer"
                     aria-label="Visit my LinkedIn profile"
                 >
                     <LinkedIn />
                 </a>
-
                 <a
                     className="socials-item"
                     target="_blank"
                     href="https://www.instagram.com/it_is_mkongo/"
-                    rel="noopener noreferrer"
+                    rel="noreferrer"
                     aria-label="Visit my Instagram profile"
                 >
                     <Instagram />

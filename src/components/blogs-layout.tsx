@@ -1,6 +1,6 @@
 import { Divider } from "components/divider"
 import React, { ReactNode, useEffect } from "react"
-import { useScreens } from "src/utils/hooks"
+import { useScreens } from "utils/hooks"
 import { ReactComponent as Filter } from "images/svgs/filter-icon.svg"
 import { Collapse } from "components/collapse"
 import { graphql, useStaticQuery, navigate, PageProps } from "gatsby"

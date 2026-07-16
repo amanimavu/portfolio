@@ -1,10 +1,11 @@
-import React, { CSSProperties, useEffect, useMemo } from "react"
+import React, { CSSProperties, useEffect, useMemo, useState } from "react"
 import { Link } from "gatsby"
 import { formatDate } from "utils/date"
-import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
-import hljs from "highlight.js"
-//@ts-ignore
-import("highlight.js/styles/a11y-light.min.css")
+import { documentToReactComponents, Options } from "@contentful/rich-text-react-renderer"
+import SyntaxHighlighter from "react-syntax-highlighter"
+import { a11yDark, a11yLight } from "react-syntax-highlighter/dist/esm/styles/hljs"
+import { useCurrentTheme } from "utils/hooks"
+import { BLOCKS } from "@contentful/rich-text-types"
 
 type BlogPreviewProps<
     T extends
@@ -15,7 +16,6 @@ type BlogPreviewProps<
 }
 
 export function BlogPreview({ title, date, preview, slug, index }: BlogPreviewProps) {
-
     return (
         <article className="blog-preview" style={{ "--animation-order": index } as CSSProperties}>
             <h4 className="title">{title}</h4>
@@ -39,22 +39,64 @@ type BlogEntryProps<T extends Queries.SingleBlogQuery["contentfulBlog"] = Querie
 
 export function BlogEntry(props: BlogEntryProps) {
     const { title, content, date } = props ?? {}
-
-    const body = useMemo(() => {
-        const result = documentToReactComponents(JSON.parse(content?.raw ?? ""))
-        return result
-    }, [content?.raw])
+    const { references } = content ?? {}
+    const getTheme = useCurrentTheme()
+    const [theme, setTheme] = useState(() => (typeof window !== "undefined" ? getTheme : "dark"))
 
     useEffect(() => {
-        const pCodeTags = document.querySelectorAll("p:has(code)")
-        pCodeTags.forEach((pCodeTag) => {
-            const codeString = pCodeTag.querySelector("code")?.textContent
-            if (codeString) {
-                const code = hljs.highlightAuto(codeString).value
-                pCodeTag.innerHTML = `<code>${code}</code>`
-            }
+        // Check initial theme
+        const root = document.documentElement
+        setTheme(getTheme())
+
+        // Observe changes to data-theme attribute
+        const observer = new MutationObserver(() => {
+            const theme = getTheme()
+            setTheme(theme)
         })
+
+        observer.observe(root, { attributes: true, attributeFilter: ["data-theme"] })
+        return () => observer.disconnect()
     }, [])
+
+    const options: Options = useMemo(
+        () => ({
+            renderNode: {
+                [BLOCKS.EMBEDDED_ENTRY]: (node) => {
+                    const entry = references?.find((ref) => ref?.contentful_id === node?.data?.target.sys.id)
+                    const language = entry?.language?.toLowerCase() ?? "text"
+                    return (
+                        <SyntaxHighlighter
+                            showLineNumbers
+                            lineNumberStyle={{ opacity: 0.3 }}
+                            language={language}
+                            style={theme === "dark" ? a11yDark : a11yLight}
+                            customStyle={{
+                                padding: "15px",
+                                fontSize: "0.4em",
+                                marginBottom: "2rem",
+                                transition: "color 0.2s ease-in, background 0.2s ease-in",
+                            }}
+                            PreTag="span"
+                            wrapLongLines
+                            codeTagProps={{
+                                style: {
+                                    lineHeight: 2,
+                                },
+                            }}
+                        >
+                            {entry?.code?.code ?? ""}
+                        </SyntaxHighlighter>
+                    )
+                },
+            },
+        }),
+        [theme]
+    )
+
+    const body = useMemo(() => {
+        const result = documentToReactComponents(JSON.parse(content?.raw ?? ""), options)
+        return result
+    }, [content?.raw, options])
 
     return (
         <>
