@@ -20,6 +20,21 @@ export default function Index(props: PageProps) {
 
     return (
         <div id="landing-page">
+            <h1
+                style={{
+                    position: "absolute",
+                    width: 1,
+                    height: 1,
+                    padding: 0,
+                    margin: -1,
+                    overflow: "hidden",
+                    clip: "rect(0, 0, 0, 0)",
+                    whiteSpace: "nowrap",
+                    border: 0,
+                }}
+            >
+                Amani Mavu — Frontend Web Developer & React Developer
+            </h1>
             <div className="hero-wrapper dark-theme">
                 <StaticImage
                     className="hero-image"
@@ -51,7 +66,12 @@ export default function Index(props: PageProps) {
 }
 
 export const Head: HeadFC = ({ location }) => (
-    <SEO pathname={location.pathname}>
+    <SEO
+        pathname={location.pathname}
+        title="Amani Mavu | Frontend Web Developer & React Developer"
+        description="Amani Mavu is a frontend web developer building responsive React, TypeScript, and modern web experiences with a strong focus on user experience."
+        keywords="Amani Mavu, frontend web developer, React developer, TypeScript developer, web development portfolio"
+    >
         <meta
             id="site-verification"
             name="google-site-verification"

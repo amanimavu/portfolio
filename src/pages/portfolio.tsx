@@ -35,6 +35,21 @@ export default function Portfolio() {
 
     return (
         <>
+            <h1
+                style={{
+                    position: "absolute",
+                    width: 1,
+                    height: 1,
+                    padding: 0,
+                    margin: -1,
+                    overflow: "hidden",
+                    clip: "rect(0, 0, 0, 0)",
+                    whiteSpace: "nowrap",
+                    border: 0,
+                }}
+            >
+                Amani Mavu portfolio and experience in frontend web development
+            </h1>
             {experience.length ? <ExperienceTemplate experience={experience} /> : null}
             {projects.length ? <ProjectTemplate projects={projects} /> : null}
         </>
@@ -46,6 +61,7 @@ export const Head: HeadFC = ({ location }) => {
         <SEO
             title="Portfolio & Experience | Amani Mavu, Frontend Web Developer"
             description="Portfolio and work experience of Amani Mavu — frontend developer building scalable, responsive web applications and contributing to impactful software projects"
+            keywords="Amani Mavu, frontend web developer, React developer, portfolio, web development experience"
             pathname={location.pathname}
         />
     )

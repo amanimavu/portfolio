@@ -18,7 +18,7 @@ type BlogPreviewProps<
 export function BlogPreview({ title, date, preview, slug, index }: BlogPreviewProps) {
     return (
         <article className="blog-preview" style={{ "--animation-order": index } as CSSProperties}>
-            <h4 className="title">{title}</h4>
+            <h2 className="title">{title}</h2>
             <p className="date">{formatDate(date ?? "")}</p>
             <div className="preview">
                 <p>

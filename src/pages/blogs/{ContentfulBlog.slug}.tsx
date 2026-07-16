@@ -20,9 +20,10 @@ export default function Component({ data: { contentfulBlog } }: PageProps<Querie
 export const Head: HeadFC<Queries.SingleBlogQuery> = ({ data: { contentfulBlog }, location }) => {
     return (
         <SEO
-            title={`${contentfulBlog?.title ?? null} | Amani Mavu`}
+            title={`${contentfulBlog?.title ?? null} | Amani Mavu | Web Development Blog`}
             pathname={location.pathname}
             description={contentfulBlog?.description ?? undefined}
+            keywords={`Amani Mavu, web development, ${contentfulBlog?.title ?? "frontend"}, JavaScript, React`}
         />
     )
 }

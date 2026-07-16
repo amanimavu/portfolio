@@ -2,8 +2,14 @@ import React, { ReactNode } from "react"
 import { useSiteMetadata } from "utils/hooks"
 import favicon from "../images/ico/favicon.ico"
 
-type Props = { title?: string; description?: string; pathname?: string; children?: ReactNode }
-export const SEO = ({ title, description, pathname, children }: Props) => {
+type Props = {
+    title?: string
+    description?: string
+    pathname?: string
+    keywords?: string
+    children?: ReactNode
+}
+export const SEO = ({ title, description, pathname, keywords, children }: Props) => {
     const {
         title: defaultTitle,
         description: defaultDescription,
@@ -24,6 +30,9 @@ export const SEO = ({ title, description, pathname, children }: Props) => {
         description: description || defaultDescription || "Portfolio of Amani Mavu",
         image: normalizedImage,
         url: `${baseUrl}${pathname || ``}`,
+        keywords:
+            keywords ||
+            "Amani Mavu, frontend web developer, React developer, web development blog, JavaScript, TypeScript",
     }
 
     const siteName = defaultTitle?.split(" | ")[0] || "Amani Mavu"
@@ -72,6 +81,7 @@ export const SEO = ({ title, description, pathname, children }: Props) => {
             <title>{seo.title}</title>
             <meta name="image" content={seo.image} id="meta-image" />
             <meta name="description" content={seo.description ?? undefined} id="meta-description" />
+            <meta name="keywords" content={seo.keywords ?? undefined} id="meta-keywords" />
             <link id="icon" type="image/x-icon" rel="icon" href={favicon} key="site-favicon" />
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
             <html lang="en" />

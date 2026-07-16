@@ -11,6 +11,21 @@ export default function BlogIndexPage({ data }: PageProps<Queries.AllBlogsQuery>
 
     return (
         <>
+            <h1
+                style={{
+                    position: "absolute",
+                    width: 1,
+                    height: 1,
+                    padding: 0,
+                    margin: -1,
+                    overflow: "hidden",
+                    clip: "rect(0, 0, 0, 0)",
+                    whiteSpace: "nowrap",
+                    border: 0,
+                }}
+            >
+                Amani Mavu web development blog and tutorials
+            </h1>
             <div className="toolbar">
                 <CountBadge count={data.allContentfulBlog.pageInfo.totalCount} />
                 <div id="pagination-search">
@@ -60,6 +75,7 @@ export const Head: HeadFC = ({ location }) => {
         <SEO
             title="Amani Mavu Blog | Web Development Insights & Tutorials"
             description="Read articles by Amani Mavu on web development, frontend best practices, and software insights. Learn, explore, and stay inspired through hands-on tutorials."
+            keywords="Amani Mavu, web development blog, frontend tutorials, JavaScript tutorials, React tutorials"
             pathname={location.pathname}
         />
     )

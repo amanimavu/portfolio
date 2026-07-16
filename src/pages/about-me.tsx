@@ -12,6 +12,7 @@ import { ReactComponent as MysqlIcon } from "images/svgs/tools/mysql.svg"
 export default function AboutMe() {
     return (
         <AboutTemplate>
+            <h1 className="title">Amani Mavu — Frontend Web Developer</h1>
             <p>
                 I’m Amani Mavu, a self-taught software developer with a background in applied mathematics. My journey
                 into tech started from a love of problem-solving and curiosity about how things work. Today, I
@@ -38,6 +39,7 @@ export const Head: HeadFC = ({ location }) => {
         <SEO
             title="About Amani Mavu | Frontend Web Developer"
             description="Get to know Amani Mavu — a frontend web developer blending problem-solving with clean design and modern technologies to create intuitive digital experiences."
+            keywords="Amani Mavu, frontend web developer, frontend developer, React developer, software developer"
             pathname={location.pathname}
         />
     )
