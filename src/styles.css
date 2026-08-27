@@ -371,7 +371,7 @@ button:disabled {
     flex-direction: column;
     grid-column: 8 / 13;
     margin: 32px 12px;
-    max-height: 75%;
+    max-height: clamp(320px, 62vh, 680px);
     overflow-y: auto;
     scrollbar-width: none;
 }
